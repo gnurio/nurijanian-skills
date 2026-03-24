@@ -1,0 +1,28 @@
+{
+  "name": "nurijanian-skills",
+  "version": "0.1.0",
+  "description": "PM alignment coaching skills for Claude Code and Cursor",
+  "author": "George (gnurio)",
+  "license": "MIT",
+  "bin": {
+    "nurijanian-skills": "./bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "references/",
+    "skills.json"
+  ],
+  "keywords": [
+    "claude-code",
+    "cursor",
+    "skills",
+    "pm",
+    "product-management",
+    "coaching"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnurio/nurijanian-skills.git"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "namespace": "pm-alignment",
+  "version": "0.1.0",
+  "description": "PM alignment coaching skills grounded in what designers and engineers say about their best product managers",
+  "skills": [
+    {
+      "name": "orchestrate-pm-alignment",
+      "file": "skills/orchestrate-pm-alignment/SKILL.md",
+      "description": "PM alignment coach and router — the entry point for all PM coaching modes"
+    },
+    {
+      "name": "situation-retrospective",
+      "file": "skills/situation-retrospective/SKILL.md",
+      "description": "Map a real situation against the 7 PM excellence clusters and surface gaps"
+    },
+    {
+      "name": "team-perspective-reveal",
+      "file": "skills/team-perspective-reveal/SKILL.md",
+      "description": "Generate what your designers and engineers would likely say about you in a peer survey"
+    },
+    {
+      "name": "adversarial-roleplay",
+      "file": "skills/adversarial-roleplay/SKILL.md",
+      "description": "Practice difficult team dynamics via live roleplay with a frustrated designer or engineer"
+    },
+    {
+      "name": "decision-audit",
+      "file": "skills/decision-audit/SKILL.md",
+      "description": "Structured retrospective of a specific decision — was it high quality, not just lucky?"
+    },
+    {
+      "name": "blind-spot-scan",
+      "file": "skills/blind-spot-scan/SKILL.md",
+      "description": "Comprehensive interview to surface systematic behavioral patterns you can't see yourself"
+    },
+    {
+      "name": "verbalized-sampling",
+      "file": "skills/verbalized-sampling/SKILL.md",
+      "description": "Generate genuinely diverse outputs using Verbalized Sampling (Zhang et al. 2025) — counteracts LLM mode collapse in creative and ideation tasks"
+    },
+    {
+      "name": "tech-sensemaking",
+      "file": "skills/tech-sensemaking/SKILL.md",
+      "description": "Analyze technology announcements for non-obvious strategic implications using Verbalized Sampling"
+    }
+  ]
+}

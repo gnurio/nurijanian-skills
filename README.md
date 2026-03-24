@@ -15,28 +15,15 @@ PM coaching skills for Claude Code and Cursor, grounded in what designers and en
 
 ## Installation
 
-### Via npx (recommended)
+Clone this repo and run the install script:
 
 ```bash
-npx nurijanian-skills
-```
-
-This installs the skills to `~/.claude/skills/pm-alignment/`.
-
-### Via npm global install
-
-```bash
-npm install -g nurijanian-skills
-nurijanian-skills
-```
-
-### Manual
-
-Clone this repo and run:
-
-```bash
+git clone https://github.com/gnurio/nurijanian-skills.git
+cd nurijanian-skills
 node bin/install.js
 ```
+
+This copies the skills to `~/.claude/skills/pm-alignment/`.
 
 ## Usage
 

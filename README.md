@@ -1,8 +1,30 @@
-# PM Alignment Skills
+# nurijanian-skills
 
-PM coaching skills for Claude Code and Cursor, grounded in what designers and engineers actually say about their best product managers.
+A growing collection of Claude Code and Cursor skills.
 
-## What's inside
+## Installation
+
+```bash
+git clone https://github.com/gnurio/nurijanian-skills.git
+cd nurijanian-skills
+node bin/install.js
+```
+
+Skills are installed to `~/.claude/skills/`.
+
+## Uninstall
+
+```bash
+rm -rf ~/.claude/skills/pm-alignment
+```
+
+---
+
+## Skills
+
+### PM Alignment
+
+PM coaching grounded in what designers and engineers actually say about their best product managers. A survey of the people closest to PMs surfaces 7 behavioral clusters that separate great from average.
 
 | Skill | What it does |
 |-------|-------------|
@@ -13,44 +35,32 @@ PM coaching skills for Claude Code and Cursor, grounded in what designers and en
 | `pm-alignment:decision-audit` | Audit whether a past decision was high quality — not just whether it worked out |
 | `pm-alignment:blind-spot-scan` | Full interview to surface the behavioral patterns you can't see yourself |
 
-## Installation
-
-Clone this repo and run the install script:
-
-```bash
-git clone https://github.com/gnurio/nurijanian-skills.git
-cd nurijanian-skills
-node bin/install.js
-```
-
-This copies the skills to `~/.claude/skills/pm-alignment/`.
-
-## Usage
-
-In Claude Code, invoke the main entry point:
+Start here:
 
 ```
 /pm-alignment:orchestrate-pm-alignment
 ```
 
-Or start any mode directly:
+---
+
+### Verbalized Sampling
+
+Implements Verbalized Sampling (Zhang et al. 2025) — a training-free technique that counteracts LLM mode collapse caused by typicality bias. Instead of asking for a single response, it prompts for a probability distribution over outputs to generate genuine diversity.
+
+Use when the task needs real variety: creative writing, brainstorming, synthetic data generation, persona simulation, adversarial examples, or any situation where "generate 5 ideas" keeps returning the same cluster.
 
 ```
-/pm-alignment:situation-retrospective
-/pm-alignment:blind-spot-scan
-/pm-alignment:adversarial-roleplay
+/verbalized-sampling
 ```
 
-In Cursor, reference skills by their path in your prompt.
+---
 
-## The framework
+### Tech Sensemaking
 
-All skills draw from a behavioral framework synthesized from a survey of designers and developers: *"What stands out about the best product manager you've ever worked with?"*
+Analyzes technology announcements to surface non-obvious strategic implications for your business. Uses Verbalized Sampling to go beyond obvious hot takes and find the new outcomes, affordances, and competitive levers a technology change creates.
 
-The framework covers 7 clusters: Communication, Decision Quality, Team Dynamics, Execution, Strategy, Customer Orientation, and Self-Awareness.
+Trigger on: "analyze this announcement", "what does this mean for us", "what can we do with this", "strategic implications of X".
 
-## Uninstall
-
-```bash
-rm -rf ~/.claude/skills/pm-alignment
+```
+/tech-sensemaking
 ```

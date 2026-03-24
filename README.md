@@ -1,6 +1,8 @@
 # nurijanian-skills
 
-A growing collection of Claude Code and Cursor skills.
+A growing collection of Claude Code and Cursor skills for product managers.
+
+These skills are part of [PM OS](https://www.prodmgmt.world/products/pm-os) — an AI workspace for product managers built inside Cursor and Claude Code, with 190+ skills, 168 frameworks, and 7 guided workflows. If you want the full system, start there. If you want just these skills, install them below.
 
 ## Installation
 

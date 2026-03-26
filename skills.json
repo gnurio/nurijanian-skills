@@ -42,6 +42,12 @@
       "name": "tech-sensemaking",
       "file": "skills/tech-sensemaking/SKILL.md",
       "description": "Analyze technology announcements for non-obvious strategic implications using Verbalized Sampling"
+    },
+    {
+      "name": "focal-point-finder",
+      "file": "skills/focal-point-finder/SKILL.md",
+      "description": "Find, evaluate, or create focal points (Schelling points) in coordination and negotiation problems — based on Thomas Schelling's The Strategy of Conflict",
+      "references": ["skills/focal-point-finder/references/schelling-focal-points.md"]
     }
   ]
 }

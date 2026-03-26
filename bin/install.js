@@ -16,6 +16,15 @@ const ORCHESTRATOR_SKILL = 'orchestrate-pm-alignment';
 const REF_DIRECTIVE =
   "Read `references/pm-excellence-behaviors.md` before doing anything else. That file contains the\nfull behavioral framework you'll use to guide, challenge, and assess the PM.";
 
+// Skills with local reference files that should be embedded at install time.
+const SKILL_REFS = {
+  'focal-point-finder': {
+    directive: 'For detailed source quotes, examples, and the full Schelling methodology, read `references/schelling-focal-points.md`.',
+    file: path.join(ROOT, 'skills', 'focal-point-finder', 'references', 'schelling-focal-points.md'),
+    label: 'Schelling Focal Points Reference'
+  }
+};
+
 function install() {
   fs.mkdirSync(TARGET_DIR, { recursive: true });
 
@@ -34,8 +43,18 @@ function install() {
           `The PM excellence behavioral framework is embedded below — use it as your source of truth:\n\n<pm-excellence-behaviors>\n${refContent}\n</pm-excellence-behaviors>`;
         content = content.replace(REF_DIRECTIVE, embedded);
       } else {
-        // Fallback: append at end
         content += `\n\n---\n\n## PM Excellence Behaviors (Reference)\n\n${refContent}`;
+      }
+    }
+
+    // Embed local references for skills that have them
+    if (SKILL_REFS[skill.name]) {
+      const ref = SKILL_REFS[skill.name];
+      const refData = fs.readFileSync(ref.file, 'utf8');
+      if (content.includes(ref.directive)) {
+        content = content.replace(ref.directive, `${ref.label} is embedded below:\n\n<${skill.name}-reference>\n${refData}\n</${skill.name}-reference>`);
+      } else {
+        content += `\n\n---\n\n## ${ref.label}\n\n${refData}`;
       }
     }
 

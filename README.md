@@ -20,6 +20,12 @@ Skills are installed to `~/.claude/skills/`.
 rm -rf ~/.claude/skills/pm-alignment
 ```
 
+Uninstall a single skill:
+
+```bash
+rm ~/.claude/skills/pm-alignment/focal-point-finder.md
+```
+
 ---
 
 ## Skills
@@ -65,4 +71,18 @@ Trigger on: "analyze this announcement", "what does this mean for us", "what can
 
 ```
 /tech-sensemaking
+```
+
+---
+
+### Focal Point Finder
+
+Find, evaluate, or create focal points in coordination and negotiation problems. Based on Thomas Schelling's *The Strategy of Conflict* — the foundational game theory text on how people converge on outcomes without explicit agreement.
+
+Use when multiple parties need to align on a single choice (a standard, a deadline, a boundary, a price, a process) and no one has the authority to dictate the answer. The skill walks through scanning for existing focal points, diagnosing why convergence is failing, and creating or proposing a focal point using 7 Schelling-grounded techniques.
+
+Trigger on: "where should we align?", "how do we get everyone on the same page?", "find a focal point", "Schelling point", "coordination problem", "propose a standard", "set a default".
+
+```
+/focal-point-finder
 ```

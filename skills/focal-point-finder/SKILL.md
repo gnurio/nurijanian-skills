@@ -35,13 +35,30 @@ Before proposing anything new, identify what focal points already exist. Check e
 
 ### The Five Magnets
 
-| Magnet | What to Look For | Test Question |
-|--------|-----------------|---------------|
-| **Uniqueness** | Is there one option that stands alone, qualitatively different from all others? | "If not this, what?" — if there is no clear alternative, it is focal. |
-| **Simplicity** | Is there a clean, discrete option vs. many that differ only by degree? | "Can this be stated in one sentence without qualifiers?" |
-| **Precedent** | Has this been done before in a similar situation? Is there a pattern everyone knows? | "What happened last time?" |
-| **Symmetry** | Is there a mathematically or aesthetically balanced option (50-50, equal, round numbers)? | "Does this feel 'fair' by default?" |
-| **Cultural Salience** | Is there something that this specific group of people would all recognize as obvious? | "Would a newcomer to this group guess the same answer?" |
+**Uniqueness** — Is there one option that stands alone, qualitatively different from all others?
+Test: "If not this, what?" — if there is no clear alternative, it is focal.
+
+> Example: On a map with many crossroads but one house, all 11 people who picked the house met. The 4 who picked crossroads each chose a different one and none met. Three houses would have destroyed the focal point — uniqueness avoids ambiguity.
+
+**Simplicity** — Is there a clean, discrete option vs. many that differ only by degree?
+Test: "Can this be stated in one sentence without qualifiers?"
+
+> Example: Poison gas was not used in WWII despite no formal treaty. "No gas" is binary and unambiguous. "Some gas" (how much? where? against whom?) creates impossible coordination. The simplicity of total abstention made it the only tacitly achievable limit.
+
+**Precedent** — Has this been done before in a similar situation? Is there a pattern everyone knows?
+Test: "What happened last time?"
+
+> Example: Middle Eastern oil royalties converged on the 50-50 formula within years of the first deal setting that pattern. Subsequent negotiations had "no heart left in the bargaining" under the shadow of that precedent.
+
+**Symmetry** — Is there a mathematically or aesthetically balanced option (50-50, equal, round numbers)?
+Test: "Does this feel 'fair' by default?"
+
+> Example: Two strangers secretly divide $100 into piles A and B. If splits match, both keep $100. 36 out of 40 chose $50/$50 — not because it is fair, but because it is the only split both can be certain the other will also pick.
+
+**Cultural Salience** — Is there something that this specific group of people would all recognize as obvious?
+Test: "Would a newcomer to this group guess the same answer?"
+
+> Example: "Meet somewhere in NYC, no instructions." Most chose Grand Central Station, information booth, 12 noon. The answer depends entirely on the people — a sample from Tokyo would converge elsewhere.
 
 For each candidate focal point found, rate its strength:
 - **Strong**: passes 3+ magnet tests, no competing focal points
@@ -117,6 +134,30 @@ Before presenting the proposed focal point, verify it passes these tests:
 3. **The Breach Test**: If someone violates this focal point, would everyone notice? If the violation is ambiguous, the focal point is not crisp enough.
 4. **The Concession Test**: Can this focal point survive small adjustments? (Focal points that depend on exact numbers like 50% collapse if compromised to 47%. This is a feature, not a bug — it makes them harder to erode.)
 5. **The Stability Test**: Once established, does this focal point create a groove that makes future coordination easier?
+
+## Anti-Patterns — Check Output Against These
+
+Before presenting a recommendation, verify it does not fall into these traps:
+
+**Optimizing instead of coordinating.** The recommendation proposes the "best" answer instead of the most recognizable one. A territory split along the most equitable population line is objectively better than the river — but nobody can independently identify the same equitable line. The river wins because both sides can find it without talking.
+
+> Bad: "Divide the region by population density, giving each side roughly equal citizens."
+> Good: "The river. It is the only line both sides will independently draw."
+
+**Proposing quantitative limits on a continuum.** The recommendation suggests a specific number or percentage when a qualitative boundary exists. Nuance kills coordination — any number can slide to the next number.
+
+> Bad: "Limit chemical weapons to 50kg per engagement with monitoring provisions."
+> Good: "No chemical weapons. Binary, unambiguous, no negotiation needed."
+
+**Offering multiple options.** The recommendation presents 3 "equally good" alternatives and asks the user to choose. The entire purpose of a focal point is singularity — one answer that commands attention by having no competitor. Presenting options is the opposite of finding a focal point.
+
+> Bad: "Here are three viable pricing models: per-seat, per-action, or flat monthly."
+> Good: "Per-seat monthly. It has the most precedent from adjacent SaaS. The others may be better, but this is the one everyone will independently guess."
+
+**Ignoring discrimination.** The recommendation rejects a focal point because it is "unfair" to one party, when the cost of miscoordination is worse than the unfairness. Schelling: "beggars cannot be choosers about the source of their signal." A discriminatory focal point that coordinates is often better than a fair proposal that nobody can independently identify.
+
+> Bad: "The river disadvantages the eastern population, so we should find a more equitable line."
+> Good: "The river disadvantages the east, but the 15 people who tried to draw a 'fairer' line produced 14 different answers. The river is the only line that works."
 
 ## Step 6: Present Recommendation
 

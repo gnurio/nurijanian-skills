@@ -47,7 +47,14 @@
       "name": "focal-point-finder",
       "file": "skills/focal-point-finder/SKILL.md",
       "description": "Find, evaluate, or create focal points (Schelling points) in coordination and negotiation problems — based on Thomas Schelling's The Strategy of Conflict",
-      "references": ["skills/focal-point-finder/references/schelling-focal-points.md"]
+      "references": [
+        "skills/focal-point-finder/references/schelling-focal-points.md"
+      ]
+    },
+    {
+      "name": "rulebook-for-arguments",
+      "file": "skills/rulebook-for-arguments/SKILL.md",
+      "description": "Construct, critique, and audit arguments using Weston's complete methodology — build positions, stress-test logic, identify fallacies, write argumentative essays, or steelman both sides of a debate"
     }
   ]
 }

@@ -65,7 +65,7 @@ Use when the task needs real variety: creative writing, brainstorming, synthetic
 
 ### Tech Sensemaking
 
-Analyzes technology announcements to surface non-obvious strategic implications for your business. Uses Verbalized Sampling to go beyond obvious hot takes and find the new outcomes, affordances, and competitive levers a technology change creates.
+Analyzes technology announcements to surface non-obvious strategic implications using Verbalized Sampling. Works against any context — a business, product, codebase, feature branch, personal project, career, or exploratory domain. Goes beyond obvious hot takes to find new outcomes, affordances, and competitive levers a technology change creates.
 
 Trigger on: "analyze this announcement", "what does this mean for us", "what can we do with this", "strategic implications of X".
 

@@ -86,3 +86,15 @@ Trigger on: "where should we align?", "how do we get everyone on the same page?"
 ```
 /focal-point-finder
 ```
+
+---
+
+### Rulebook for Arguments
+
+Construct, critique, and audit arguments using the complete methodology from Weston's *A Rulebook for Arguments*. Four modes: **BUILD** a logically sound argument from scratch, **AUDIT** an existing argument for validity and fallacies, **ESSAY** to draft or improve argumentative writing using the full extended-argument rules, or **DEBATE** to steelman both sides and identify the stronger position.
+
+Covers all 45 rules, 19 common fallacies, 3 definition rules, deductive forms (modus ponens, modus tollens, disjunctive syllogism, reductio ad absurdum), causal reasoning, analogy evaluation, and source quality assessment.
+
+```
+/rulebook-for-arguments
+```

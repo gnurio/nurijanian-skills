@@ -1,8 +1,13 @@
 ---
 name: rulebook-for-arguments
-description: Construct, critique, and audit arguments using the complete methodology from Weston's "A Rulebook for Arguments". Use when building a position, stress-testing logic, identifying fallacies, writing argumentative essays, or preparing for debate. Covers all 45 rules, 19 fallacies, 3 definition rules, deductive forms, causal reasoning, and analogy evaluation.
+description: >
+  Construct, critique, and audit arguments using the complete methodology from
+  Weston's "A Rulebook for Arguments". Use when building a position,
+  stress-testing logic, identifying fallacies, writing argumentative essays, or
+  preparing for debate. Covers all 45 rules, 19 fallacies, 3 definition rules,
+  deductive forms, causal reasoning, and analogy evaluation.
 user-invocable: true
-argument-hint: [MODE=build|audit|essay|debate] [TOPIC=<value>]
+argument-hint: "[MODE=build|audit|essay|debate] [TOPIC=<value>]"
 ---
 
 ## What This Skill Does

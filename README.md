@@ -12,15 +12,29 @@ cd nurijanian-skills
 node bin/install.js
 ```
 
-Skills are installed to `~/.claude/skills/`.
+By default this installs for all three supported tools. To install for one only:
+
+```bash
+node bin/install.js --claude   # Claude Code → ~/.claude/skills/
+node bin/install.js --cursor   # Cursor → ~/.cursor/rules/
+node bin/install.js --codex    # Codex → ~/.codex/
+```
+
+| Tool | Install location | Usage |
+|------|-----------------|-------|
+| Claude Code | `~/.claude/skills/<namespace>/` | `/skill-name` or `/namespace:skill-name` |
+| Cursor | `~/.cursor/rules/<namespace>/` | Reference the rule in Agent mode |
+| Codex | `~/.codex/<namespace>.md` | Skills embedded as instructions |
 
 ## Uninstall
 
 ```bash
 rm -rf ~/.claude/skills/pm-alignment
+rm -rf ~/.cursor/rules/pm-alignment
+rm ~/.codex/pm-alignment.md
 ```
 
-Uninstall a single skill:
+Uninstall a single Claude Code skill:
 
 ```bash
 rm ~/.claude/skills/pm-alignment/focal-point-finder.md
@@ -97,4 +111,23 @@ Covers all 45 rules, 19 common fallacies, 3 definition rules, deductive forms (m
 
 ```
 /rulebook-for-arguments
+```
+
+---
+
+### Vibe Code Leaf Finder
+
+Audit a codebase and classify every file as **LEAF** (safe to vibe code freely), **BRANCH** (AI can draft, human reviews structural decisions), or **TRUNK** (human writes every line). Produces a `LEAF_REPORT.md` with a classification table, suggested stress tests per leaf file, and a plain-English summary for non-engineers.
+
+Grounded in Erik Schluntz's (Anthropic) leaf-vs-trunk framework from the *Vibe coding in prod* talk (Code w/ Claude, 2025): tech debt is acceptable in leaf nodes because nothing depends on them, but trunks and branches must stay protected, deeply understood, and extensible.
+
+Use when:
+- You want to know where it's safe to let Claude rewrite code without engineer review of every line.
+- You're a PM or founder who wants to ship features without breaking core architecture.
+- You're setting up a vibe-coding session and need to scope which files are in bounds.
+
+Trigger on: "vibe-code audit", "leaf finder", "where can I let Claude loose", "which files are safe to rewrite", "can a PM edit this".
+
+```
+/vibe-code-leaf-finder
 ```

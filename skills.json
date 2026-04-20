@@ -55,6 +55,17 @@
       "name": "rulebook-for-arguments",
       "file": "skills/rulebook-for-arguments/SKILL.md",
       "description": "Construct, critique, and audit arguments using Weston's complete methodology — build positions, stress-test logic, identify fallacies, write argumentative essays, or steelman both sides of a debate"
+    },
+    {
+      "name": "vibe-code-leaf-finder",
+      "file": "skills/vibe-code-leaf-finder/SKILL.md",
+      "description": "Classify every file in a codebase as LEAF (safe to vibe code), BRANCH (AI drafts, human reviews), or TRUNK (human writes) — grounded in Erik Schluntz's leaf-vs-trunk framework from Anthropic's 'Vibe coding in prod' talk",
+      "references": [
+        "skills/vibe-code-leaf-finder/references/schluntz-framework.md"
+      ],
+      "assets": [
+        "skills/vibe-code-leaf-finder/assets/LEAF_REPORT_TEMPLATE.md"
+      ]
     }
   ]
 }

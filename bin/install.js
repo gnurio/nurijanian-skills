@@ -1,168 +1,212 @@
 #!/usr/bin/env node
+/*
+ * Install nurijanian-skills into Claude Code, Cursor, and/or Codex.
+ *
+ * Usage:
+ *   node bin/install.js                        # all targets, copy mode
+ *   node bin/install.js --claude --cursor      # only selected targets
+ *   node bin/install.js --link                 # symlink (local dev, Claude Code only)
+ *   node bin/install.js --clean                # remove previously installed skills before install
+ *   node bin/install.js --uninstall            # remove only, no install
+ *   npx nurijanian-skills                      # same as default (from installed package)
+ */
 
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
 const ROOT = path.join(__dirname, '..');
-const SKILLS_MANIFEST = require(path.join(ROOT, 'skills.json'));
+const MANIFEST = require(path.join(ROOT, 'skills.json'));
+const HOME = os.homedir();
 
-const REF_PATH = path.join(ROOT, 'references', 'pm-excellence-behaviors.md');
-const ORCHESTRATOR_SKILL = 'orchestrate-pm-alignment';
+const CLAUDE_SKILLS_DIR = path.join(HOME, '.claude', 'skills');
+const CURSOR_RULES_DIR = path.join(HOME, '.cursor', 'rules');
+const CODEX_DIR = path.join(HOME, '.codex');
 
-const REF_DIRECTIVE =
-  "Read `references/pm-excellence-behaviors.md` before doing anything else. That file contains the\nfull behavioral framework you'll use to guide, challenge, and assess the PM.";
+// Legacy install locations to clean up from the old namespaced layout.
+const LEGACY_CLAUDE = path.join(CLAUDE_SKILLS_DIR, 'pm-alignment');
+const LEGACY_CURSOR = path.join(CURSOR_RULES_DIR, 'pm-alignment');
+const LEGACY_CODEX = path.join(CODEX_DIR, 'pm-alignment.md');
 
-// Skills with local reference files that should be embedded at install time.
-const SKILL_REFS = {
-  'focal-point-finder': {
-    directive: 'For detailed source quotes, examples, and the full Schelling methodology, read `references/schelling-focal-points.md`.',
-    file: path.join(ROOT, 'skills', 'focal-point-finder', 'references', 'schelling-focal-points.md'),
-    label: 'Schelling Focal Points Reference'
-  },
-  'vibe-code-leaf-finder': {
-    directive: 'Full framework quotes and rationale: `references/schluntz-framework.md`.',
-    file: path.join(ROOT, 'skills', 'vibe-code-leaf-finder', 'references', 'schluntz-framework.md'),
-    label: 'Schluntz Leaf-vs-Trunk Framework'
-  }
-};
-
-// Skills with asset files (templates etc.) that should be embedded at install time.
-const SKILL_ASSETS = {
-  'vibe-code-leaf-finder': {
-    directive: 'Write output to `LEAF_REPORT.md` using the template in `assets/LEAF_REPORT_TEMPLATE.md`. Use the Write tool, not Shell echo.',
-    file: path.join(ROOT, 'skills', 'vibe-code-leaf-finder', 'assets', 'LEAF_REPORT_TEMPLATE.md'),
-    label: 'LEAF_REPORT_TEMPLATE'
-  }
-};
-
-function buildSkillContent(skill) {
-  const src = path.join(ROOT, skill.file);
-  let content = fs.readFileSync(src, 'utf8');
-
-  // Embed the PM excellence reference into the orchestrator
-  if (skill.name === ORCHESTRATOR_SKILL) {
-    const refContent = fs.readFileSync(REF_PATH, 'utf8');
-    if (content.includes(REF_DIRECTIVE)) {
-      const embedded =
-        `The PM excellence behavioral framework is embedded below — use it as your source of truth:\n\n<pm-excellence-behaviors>\n${refContent}\n</pm-excellence-behaviors>`;
-      content = content.replace(REF_DIRECTIVE, embedded);
-    } else {
-      content += `\n\n---\n\n## PM Excellence Behaviors (Reference)\n\n${refContent}`;
-    }
-  }
-
-  // Embed local references for skills that have them
-  if (SKILL_REFS[skill.name]) {
-    const ref = SKILL_REFS[skill.name];
-    const refData = fs.readFileSync(ref.file, 'utf8');
-    if (content.includes(ref.directive)) {
-      content = content.replace(
-        ref.directive,
-        `${ref.label} is embedded below:\n\n<${skill.name}-reference>\n${refData}\n</${skill.name}-reference>`
-      );
-    } else {
-      content += `\n\n---\n\n## ${ref.label}\n\n${refData}`;
-    }
-  }
-
-  // Embed asset files for skills that have them
-  if (SKILL_ASSETS[skill.name]) {
-    const asset = SKILL_ASSETS[skill.name];
-    const assetData = fs.readFileSync(asset.file, 'utf8');
-    if (content.includes(asset.directive)) {
-      content = content.replace(
-        asset.directive,
-        `The ${asset.label} template is embedded below — copy it and fill it in:\n\n<${asset.label}>\n${assetData}\n</${asset.label}>`
-      );
-    } else {
-      content += `\n\n---\n\n## ${asset.label}\n\n${assetData}`;
-    }
-  }
-
-  return content;
+function parseArgs(argv) {
+  const flags = new Set(argv);
+  const hasTargetFlag = ['--claude', '--cursor', '--codex'].some((t) => flags.has(t));
+  return {
+    claude: flags.has('--claude') || !hasTargetFlag,
+    cursor: flags.has('--cursor') || !hasTargetFlag,
+    codex: flags.has('--codex') || !hasTargetFlag,
+    link: flags.has('--link'),
+    clean: flags.has('--clean'),
+    uninstall: flags.has('--uninstall'),
+    help: flags.has('--help') || flags.has('-h'),
+  };
 }
 
-function installClaudeCode() {
-  const targetDir = path.join(os.homedir(), '.claude', 'skills', SKILLS_MANIFEST.namespace);
-  fs.mkdirSync(targetDir, { recursive: true });
+function printHelp() {
+  console.log(`nurijanian-skills v${MANIFEST.version}
 
-  for (const skill of SKILLS_MANIFEST.skills) {
-    const dest = path.join(targetDir, `${skill.name}.md`);
-    fs.writeFileSync(dest, buildSkillContent(skill));
+Usage:
+  npx nurijanian-skills [options]
+
+Targets (default: all):
+  --claude     Install to Claude Code (~/.claude/skills/<skill>/)
+  --cursor     Install to Cursor (~/.cursor/rules/<skill>.mdc)
+  --codex      Install to Codex (~/.codex/nurijanian-skills.md)
+
+Modes:
+  --link       Symlink source dirs for local dev (Claude Code only)
+  --clean      Remove previously installed skills before installing
+  --uninstall  Remove installed skills and exit
+  --help       Show this message
+`);
+}
+
+function rmIfExists(target) {
+  if (fs.existsSync(target) || fs.lstatSync(target, { throwIfNoEntry: false })) {
+    fs.rmSync(target, { recursive: true, force: true });
   }
+}
 
-  console.log(`\nClaude Code: installed ${SKILLS_MANIFEST.skills.length} skills to:\n  ${targetDir}`);
-  console.log('\nAvailable skills:');
-  for (const skill of SKILLS_MANIFEST.skills) {
-    console.log(`  /${SKILLS_MANIFEST.namespace}:${skill.name}`);
+function copyDir(src, dest) {
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDir(srcPath, destPath);
+    } else if (entry.isFile()) {
+      fs.copyFileSync(srcPath, destPath);
+    } else if (entry.isSymbolicLink()) {
+      const linkTarget = fs.readlinkSync(srcPath);
+      fs.symlinkSync(linkTarget, destPath);
+    }
+  }
+}
+
+function readSkillMarkdown(skill) {
+  return fs.readFileSync(path.join(ROOT, skill.dir, 'SKILL.md'), 'utf8');
+}
+
+function toCursorMdc(skill) {
+  const body = readSkillMarkdown(skill);
+  const fmMatch = body.match(/^---\n([\s\S]*?)\n---\n/);
+  let description = skill.description;
+  let stripped = body;
+  if (fmMatch) {
+    const fm = fmMatch[1];
+    const descMatch = fm.match(/description:\s*(>[\s-]*\n(?:\s+.+\n?)+|.+)/);
+    if (descMatch) {
+      description = descMatch[1]
+        .replace(/^>\s*\n?/, '')
+        .split('\n')
+        .map((l) => l.trim())
+        .filter(Boolean)
+        .join(' ');
+    }
+    stripped = body.slice(fmMatch[0].length);
+  }
+  return `---\ndescription: ${description}\nalwaysApply: false\n---\n${stripped}`;
+}
+
+function cleanTargets(opts) {
+  if (opts.claude) {
+    rmIfExists(LEGACY_CLAUDE);
+    for (const skill of MANIFEST.skills) {
+      rmIfExists(path.join(CLAUDE_SKILLS_DIR, skill.name));
+    }
+  }
+  if (opts.cursor) {
+    rmIfExists(LEGACY_CURSOR);
+    for (const skill of MANIFEST.skills) {
+      rmIfExists(path.join(CURSOR_RULES_DIR, `${skill.name}.mdc`));
+    }
+  }
+  if (opts.codex) {
+    rmIfExists(LEGACY_CODEX);
+    rmIfExists(path.join(CODEX_DIR, `${MANIFEST.name}.md`));
+  }
+}
+
+function installClaudeCode(opts) {
+  fs.mkdirSync(CLAUDE_SKILLS_DIR, { recursive: true });
+  rmIfExists(LEGACY_CLAUDE);
+  for (const skill of MANIFEST.skills) {
+    const src = path.join(ROOT, skill.dir);
+    const dest = path.join(CLAUDE_SKILLS_DIR, skill.name);
+    rmIfExists(dest);
+    if (opts.link) {
+      fs.symlinkSync(src, dest);
+    } else {
+      copyDir(src, dest);
+    }
+  }
+  console.log(
+    `\nClaude Code: installed ${MANIFEST.skills.length} skills to ${CLAUDE_SKILLS_DIR} (${opts.link ? 'symlinked' : 'copied'})`
+  );
+  for (const skill of MANIFEST.skills) {
+    console.log(`  /${skill.name}`);
   }
 }
 
 function installCursor() {
-  const targetDir = path.join(os.homedir(), '.cursor', 'rules', SKILLS_MANIFEST.namespace);
-  fs.mkdirSync(targetDir, { recursive: true });
-
-  for (const skill of SKILLS_MANIFEST.skills) {
-    const dest = path.join(targetDir, `${skill.name}.mdc`);
-    const body = buildSkillContent(skill);
-
-    // Extract description from frontmatter if present, otherwise use manifest description
-    const fmMatch = body.match(/^---\n[\s\S]*?description:\s*(.+)\n[\s\S]*?---/);
-    const description = fmMatch ? fmMatch[1].trim() : skill.description;
-
-    // Strip existing frontmatter and wrap as Cursor MDC rule
-    const stripped = body.replace(/^---\n[\s\S]*?---\n/, '');
-    const mdc = `---
-description: ${description}
-alwaysApply: false
----
-${stripped}`;
-
-    fs.writeFileSync(dest, mdc);
+  fs.mkdirSync(CURSOR_RULES_DIR, { recursive: true });
+  rmIfExists(LEGACY_CURSOR);
+  for (const skill of MANIFEST.skills) {
+    const dest = path.join(CURSOR_RULES_DIR, `${skill.name}.mdc`);
+    fs.writeFileSync(dest, toCursorMdc(skill));
   }
-
-  console.log(`\nCursor: installed ${SKILLS_MANIFEST.skills.length} rules to:\n  ${targetDir}`);
-  console.log('\nUse in Cursor Agent mode by referencing the rule or typing the skill name in chat.');
+  console.log(
+    `\nCursor: installed ${MANIFEST.skills.length} rules to ${CURSOR_RULES_DIR}`
+  );
+  console.log('  Reference by name in Agent mode.');
 }
 
 function installCodex() {
-  const targetDir = path.join(os.homedir(), '.codex');
-  fs.mkdirSync(targetDir, { recursive: true });
-
+  fs.mkdirSync(CODEX_DIR, { recursive: true });
+  rmIfExists(LEGACY_CODEX);
   const lines = [
-    `# ${SKILLS_MANIFEST.namespace} skills`,
-    ``,
-    SKILLS_MANIFEST.description,
-    ``,
-    `The following skills are available. When the user triggers one by name, follow its instructions exactly.`,
-    ``
+    `# ${MANIFEST.name} skills`,
+    '',
+    MANIFEST.description,
+    '',
+    'The following skills are available. When the user triggers one by name, follow its instructions exactly.',
+    '',
   ];
-
-  for (const skill of SKILLS_MANIFEST.skills) {
-    const body = buildSkillContent(skill);
-    const stripped = body.replace(/^---\n[\s\S]*?---\n/, '');
-    lines.push(`---`);
+  for (const skill of MANIFEST.skills) {
+    const body = readSkillMarkdown(skill);
+    const stripped = body.replace(/^---\n[\s\S]*?---\n/, '').trim();
+    lines.push('---');
     lines.push(`## Skill: ${skill.name}`);
-    lines.push(``);
-    lines.push(stripped.trim());
-    lines.push(``);
+    lines.push('');
+    lines.push(stripped);
+    lines.push('');
+  }
+  const dest = path.join(CODEX_DIR, `${MANIFEST.name}.md`);
+  fs.writeFileSync(dest, lines.join('\n'));
+  console.log(`\nCodex: installed all skills as a single instructions file: ${dest}`);
+}
+
+function main() {
+  const opts = parseArgs(process.argv.slice(2));
+  if (opts.help) return printHelp();
+
+  if (opts.uninstall) {
+    cleanTargets(opts);
+    console.log('\nUninstalled nurijanian-skills from selected targets.');
+    return;
   }
 
-  const dest = path.join(targetDir, `${SKILLS_MANIFEST.namespace}.md`);
-  fs.writeFileSync(dest, lines.join('\n'));
+  if (opts.link && !opts.claude) {
+    console.warn('Note: --link only applies to Claude Code; other targets will still copy.');
+  }
 
-  console.log(`\nCodex: installed all skills as a single instructions file:\n  ${dest}`);
+  if (opts.clean) cleanTargets(opts);
+
+  if (opts.claude) installClaudeCode(opts);
+  if (opts.cursor) installCursor();
+  if (opts.codex) installCodex();
+
+  console.log('\nDone. Re-run this command any time you update a skill source file.');
 }
 
-const args = process.argv.slice(2);
-const targets = args.length > 0 ? args : ['--claude', '--cursor', '--codex'];
-
-if (targets.includes('--claude')) installClaudeCode();
-if (targets.includes('--cursor')) installCursor();
-if (targets.includes('--codex')) installCodex();
-
-if (!targets.some(t => ['--claude', '--cursor', '--codex'].includes(t))) {
-  console.error('Unknown target. Use: --claude, --cursor, --codex (default: all three)');
-  process.exit(1);
-}
+main();

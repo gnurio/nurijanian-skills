@@ -1,28 +1,38 @@
 {
   "name": "nurijanian-skills",
-  "version": "0.1.0",
-  "description": "PM alignment coaching skills for Claude Code and Cursor",
+  "version": "0.2.0",
+  "description": "Skills for PMs on Claude Code, Cursor, and Codex — PM alignment coaching, verbalized sampling, tech sensemaking, focal points, arguments, and vibe-code auditing",
   "author": "George (gnurio)",
   "license": "MIT",
   "bin": {
     "nurijanian-skills": "./bin/install.js"
   },
+  "scripts": {
+    "install:local": "node bin/install.js",
+    "install:link": "node bin/install.js --link",
+    "uninstall:local": "node bin/install.js --uninstall"
+  },
   "files": [
     "bin/",
     "skills/",
-    "references/",
-    "skills.json"
+    "skills.json",
+    "README.md"
   ],
   "keywords": [
     "claude-code",
     "cursor",
+    "codex",
     "skills",
     "pm",
     "product-management",
-    "coaching"
+    "coaching",
+    "vibe-coding"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/gnurio/nurijanian-skills.git"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

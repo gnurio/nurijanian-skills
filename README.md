@@ -1,44 +1,55 @@
 # nurijanian-skills
 
-A growing collection of Claude Code and Cursor skills for product managers.
+A growing collection of Claude Code, Cursor, and Codex skills for product managers.
 
 These skills are part of [PM OS](https://www.prodmgmt.world/products/pm-os) — an AI workspace for product managers built inside Cursor and Claude Code, with 190+ skills, 168 frameworks, and 7 guided workflows. If you want the full system, start there. If you want just these skills, install them below.
 
-## Installation
+## Install
+
+### One-liner (recommended)
+
+```bash
+npx nurijanian-skills
+```
+
+Installs all skills into Claude Code, Cursor, and Codex. Pass flags to pick targets:
+
+```bash
+npx nurijanian-skills --claude   # Claude Code only → ~/.claude/skills/<skill>/
+npx nurijanian-skills --cursor   # Cursor only      → ~/.cursor/rules/<skill>.mdc
+npx nurijanian-skills --codex    # Codex only       → ~/.codex/nurijanian-skills.md
+```
+
+Combine flags to target multiple tools (`--claude --cursor`).
+
+### From source (for development)
 
 ```bash
 git clone https://github.com/gnurio/nurijanian-skills.git
 cd nurijanian-skills
-node bin/install.js
+node bin/install.js               # copy mode
+node bin/install.js --link        # symlink mode (live-edit source → changes hit Claude Code instantly)
 ```
 
-By default this installs for all three supported tools. To install for one only:
+`--link` only applies to Claude Code (directory form). Cursor and Codex always copy because their formats are derived from SKILL.md at install time.
 
-```bash
-node bin/install.js --claude   # Claude Code → ~/.claude/skills/
-node bin/install.js --cursor   # Cursor → ~/.cursor/rules/
-node bin/install.js --codex    # Codex → ~/.codex/
-```
+### Where things land
 
-| Tool | Install location | Usage |
-|------|-----------------|-------|
-| Claude Code | `~/.claude/skills/<namespace>/` | `/skill-name` or `/namespace:skill-name` |
-| Cursor | `~/.cursor/rules/<namespace>/` | Reference the rule in Agent mode |
-| Codex | `~/.codex/<namespace>.md` | Skills embedded as instructions |
+| Tool        | Location                                 | Invocation                        |
+|-------------|------------------------------------------|-----------------------------------|
+| Claude Code | `~/.claude/skills/<skill>/SKILL.md`      | `/skill-name`                     |
+| Cursor      | `~/.cursor/rules/<skill>.mdc`            | Reference the rule in Agent mode  |
+| Codex       | `~/.codex/nurijanian-skills.md`          | Skills embedded as instructions   |
 
 ## Uninstall
 
 ```bash
-rm -rf ~/.claude/skills/pm-alignment
-rm -rf ~/.cursor/rules/pm-alignment
-rm ~/.codex/pm-alignment.md
+npx nurijanian-skills --uninstall
 ```
 
-Uninstall a single Claude Code skill:
+Or target a single tool: `--uninstall --claude`.
 
-```bash
-rm ~/.claude/skills/pm-alignment/focal-point-finder.md
-```
+To wipe and reinstall fresh: `npx nurijanian-skills --clean`.
 
 ---
 
@@ -50,17 +61,17 @@ PM coaching grounded in what designers and engineers actually say about their be
 
 | Skill | What it does |
 |-------|-------------|
-| `pm-alignment:orchestrate-pm-alignment` | Entry point — detects what you need and routes you to the right mode |
-| `pm-alignment:situation-retrospective` | Debrief a real situation against the 7 PM excellence clusters |
-| `pm-alignment:team-perspective-reveal` | Simulate what your team would say about you in a peer survey |
-| `pm-alignment:adversarial-roleplay` | Practice live with a frustrated designer or engineer, then debrief |
-| `pm-alignment:decision-audit` | Audit whether a past decision was high quality — not just whether it worked out |
-| `pm-alignment:blind-spot-scan` | Full interview to surface the behavioral patterns you can't see yourself |
+| `orchestrate-pm-alignment` | Entry point — detects what you need and routes you to the right mode |
+| `situation-retrospective` | Debrief a real situation against the 7 PM excellence clusters |
+| `team-perspective-reveal` | Simulate what your team would say about you in a peer survey |
+| `adversarial-roleplay` | Practice live with a frustrated designer or engineer, then debrief |
+| `decision-audit` | Audit whether a past decision was high quality — not just whether it worked out |
+| `blind-spot-scan` | Full interview to surface the behavioral patterns you can't see yourself |
 
 Start here:
 
 ```
-/pm-alignment:orchestrate-pm-alignment
+/orchestrate-pm-alignment
 ```
 
 ---
@@ -131,3 +142,19 @@ Trigger on: "vibe-code audit", "leaf finder", "where can I let Claude loose", "w
 ```
 /vibe-code-leaf-finder
 ```
+
+---
+
+## Contributing
+
+To add a new skill:
+
+1. Create `skills/<skill-name>/SKILL.md` with YAML frontmatter (`name`, `description`).
+2. Put any reference files or templates in `skills/<skill-name>/references/` or `skills/<skill-name>/assets/`. Every skill must be self-contained — no shared top-level references.
+3. Register it in `skills.json` (`name`, `dir`, `description`).
+4. Add a section to this README.
+5. Test locally with `node bin/install.js --link` so edits flow to Claude Code instantly.
+
+## License
+
+MIT © George (gnurio)

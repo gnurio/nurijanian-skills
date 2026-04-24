@@ -16,7 +16,7 @@ Installs all skills into Claude Code, Cursor, and Codex. Pass flags to pick targ
 
 ```bash
 npx nurijanian-skills --claude   # Claude Code only → ~/.claude/skills/<skill>/
-npx nurijanian-skills --cursor   # Cursor only      → ~/.cursor/rules/<skill>.mdc
+npx nurijanian-skills --cursor   # Cursor only      → ~/.cursor/skills/<skill>/
 npx nurijanian-skills --codex    # Codex only       → ~/.codex/nurijanian-skills.md
 ```
 
@@ -31,14 +31,14 @@ node bin/install.js               # copy mode
 node bin/install.js --link        # symlink mode (live-edit source → changes hit Claude Code instantly)
 ```
 
-`--link` only applies to Claude Code (directory form). Cursor and Codex always copy because their formats are derived from SKILL.md at install time.
+`--link` applies to Claude Code and Cursor (directory-form skills). Codex always copies because its format is derived from SKILL.md at install time.
 
 ### Where things land
 
 | Tool        | Location                                 | Invocation                        |
 |-------------|------------------------------------------|-----------------------------------|
 | Claude Code | `~/.claude/skills/<skill>/SKILL.md`      | `/skill-name`                     |
-| Cursor      | `~/.cursor/rules/<skill>.mdc`            | Reference the rule in Agent mode  |
+| Cursor      | `~/.cursor/skills/<skill>/SKILL.md`      | `/skill-name`                     |
 | Codex       | `~/.codex/nurijanian-skills.md`          | Skills embedded as instructions   |
 
 ## Uninstall
@@ -141,6 +141,18 @@ Trigger on: "vibe-code audit", "leaf finder", "where can I let Claude loose", "w
 
 ```
 /vibe-code-leaf-finder
+```
+
+---
+
+### Workflow Trellis
+
+Turn messy workflow evidence into a visible model of the work: durable obligations, entities, states, fragmented sources of truth, AI insertion points, and exception queues. Useful for analyzing interviews, customer research, operational workflows, vertical SaaS opportunities, PM workflows, and AI feature ideas.
+
+The core move is to represent the work before proposing automation, so product strategy is grounded in obligations, fragments, confidence signals, and human accountability.
+
+```
+/workflow-trellis
 ```
 
 ---

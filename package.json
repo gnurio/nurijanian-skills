@@ -1,7 +1,7 @@
 {
   "name": "nurijanian-skills",
   "version": "0.2.0",
-  "description": "Skills for PMs on Claude Code, Cursor, and Codex — PM alignment coaching, verbalized sampling, tech sensemaking, focal points, arguments, and vibe-code auditing",
+  "description": "Skills for PMs on Claude Code, Cursor, and Codex — PM coaching, workflow modeling, strategic sensemaking, arguments, and vibe-code auditing",
   "author": "George (gnurio)",
   "license": "MIT",
   "bin": {
@@ -25,6 +25,8 @@
     "skills",
     "pm",
     "product-management",
+    "workflow",
+    "vertical-saas",
     "coaching",
     "vibe-coding"
   ],

@@ -5,7 +5,7 @@
  * Usage:
  *   node bin/install.js                        # all targets, copy mode
  *   node bin/install.js --claude --cursor      # only selected targets
- *   node bin/install.js --link                 # symlink (local dev, Claude Code only)
+ *   node bin/install.js --link                 # symlink skill dirs (local dev)
  *   node bin/install.js --clean                # remove previously installed skills before install
  *   node bin/install.js --uninstall            # remove only, no install
  *   npx nurijanian-skills                      # same as default (from installed package)
@@ -20,6 +20,7 @@ const MANIFEST = require(path.join(ROOT, 'skills.json'));
 const HOME = os.homedir();
 
 const CLAUDE_SKILLS_DIR = path.join(HOME, '.claude', 'skills');
+const CURSOR_SKILLS_DIR = path.join(HOME, '.cursor', 'skills');
 const CURSOR_RULES_DIR = path.join(HOME, '.cursor', 'rules');
 const CODEX_DIR = path.join(HOME, '.codex');
 
@@ -50,11 +51,11 @@ Usage:
 
 Targets (default: all):
   --claude     Install to Claude Code (~/.claude/skills/<skill>/)
-  --cursor     Install to Cursor (~/.cursor/rules/<skill>.mdc)
+  --cursor     Install to Cursor (~/.cursor/skills/<skill>/)
   --codex      Install to Codex (~/.codex/nurijanian-skills.md)
 
 Modes:
-  --link       Symlink source dirs for local dev (Claude Code only)
+  --link       Symlink source dirs for local dev (Claude Code and Cursor)
   --clean      Remove previously installed skills before installing
   --uninstall  Remove installed skills and exit
   --help       Show this message
@@ -87,27 +88,6 @@ function readSkillMarkdown(skill) {
   return fs.readFileSync(path.join(ROOT, skill.dir, 'SKILL.md'), 'utf8');
 }
 
-function toCursorMdc(skill) {
-  const body = readSkillMarkdown(skill);
-  const fmMatch = body.match(/^---\n([\s\S]*?)\n---\n/);
-  let description = skill.description;
-  let stripped = body;
-  if (fmMatch) {
-    const fm = fmMatch[1];
-    const descMatch = fm.match(/description:\s*(>[\s-]*\n(?:\s+.+\n?)+|.+)/);
-    if (descMatch) {
-      description = descMatch[1]
-        .replace(/^>\s*\n?/, '')
-        .split('\n')
-        .map((l) => l.trim())
-        .filter(Boolean)
-        .join(' ');
-    }
-    stripped = body.slice(fmMatch[0].length);
-  }
-  return `---\ndescription: ${description}\nalwaysApply: false\n---\n${stripped}`;
-}
-
 function cleanTargets(opts) {
   if (opts.claude) {
     rmIfExists(LEGACY_CLAUDE);
@@ -118,6 +98,7 @@ function cleanTargets(opts) {
   if (opts.cursor) {
     rmIfExists(LEGACY_CURSOR);
     for (const skill of MANIFEST.skills) {
+      rmIfExists(path.join(CURSOR_SKILLS_DIR, skill.name));
       rmIfExists(path.join(CURSOR_RULES_DIR, `${skill.name}.mdc`));
     }
   }
@@ -148,17 +129,27 @@ function installClaudeCode(opts) {
   }
 }
 
-function installCursor() {
-  fs.mkdirSync(CURSOR_RULES_DIR, { recursive: true });
+function installCursor(opts) {
+  fs.mkdirSync(CURSOR_SKILLS_DIR, { recursive: true });
   rmIfExists(LEGACY_CURSOR);
   for (const skill of MANIFEST.skills) {
-    const dest = path.join(CURSOR_RULES_DIR, `${skill.name}.mdc`);
-    fs.writeFileSync(dest, toCursorMdc(skill));
+    const src = path.join(ROOT, skill.dir);
+    const dest = path.join(CURSOR_SKILLS_DIR, skill.name);
+    rmIfExists(dest);
+    rmIfExists(path.join(CURSOR_RULES_DIR, `${skill.name}.mdc`));
+    if (opts.link) {
+      fs.symlinkSync(src, dest);
+    } else {
+      copyDir(src, dest);
+    }
   }
   console.log(
-    `\nCursor: installed ${MANIFEST.skills.length} rules to ${CURSOR_RULES_DIR}`
+    `\nCursor: installed ${MANIFEST.skills.length} skills to ${CURSOR_SKILLS_DIR} (${opts.link ? 'symlinked' : 'copied'})`
   );
   console.log('  Reference by name in Agent mode.');
+  for (const skill of MANIFEST.skills) {
+    console.log(`  /${skill.name}`);
+  }
 }
 
 function installCodex() {
@@ -196,14 +187,14 @@ function main() {
     return;
   }
 
-  if (opts.link && !opts.claude) {
-    console.warn('Note: --link only applies to Claude Code; other targets will still copy.');
+  if (opts.link && opts.codex) {
+    console.warn('Note: --link applies to directory-based targets; Codex will still copy into one instructions file.');
   }
 
   if (opts.clean) cleanTargets(opts);
 
   if (opts.claude) installClaudeCode(opts);
-  if (opts.cursor) installCursor();
+  if (opts.cursor) installCursor(opts);
   if (opts.codex) installCodex();
 
   console.log('\nDone. Re-run this command any time you update a skill source file.');

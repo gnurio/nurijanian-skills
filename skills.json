@@ -57,6 +57,11 @@
       "name": "vibe-code-leaf-finder",
       "dir": "skills/vibe-code-leaf-finder",
       "description": "Classify every file in a codebase as LEAF (safe to vibe code), BRANCH (AI drafts, human reviews), or TRUNK (human writes) — grounded in Erik Schluntz's leaf-vs-trunk framework from Anthropic's 'Vibe coding in prod' talk"
+    },
+    {
+      "name": "workflow-trellis",
+      "dir": "skills/workflow-trellis",
+      "description": "Represent messy workflows as durable obligations, fragments, AI insertion points, and exception queues — useful for customer research, vertical SaaS exploration, and AI feature design"
     }
   ]
 }

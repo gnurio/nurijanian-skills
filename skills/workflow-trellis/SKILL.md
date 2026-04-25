@@ -1,9 +1,9 @@
 ---
 name: workflow-trellis
 description: >
-  Represent messy work as durable obligations, workflow building blocks, fragments, AI insertion points,
+  Represent messy work as durable obligations, workflow building blocks, fragments, AI/automation insertion points,
   and exception queues. Use this whenever the user wants to analyze interviews, messy notes, customer
-  research, operational workflows, PM workflows, vertical SaaS opportunities, AI insertion points,
+  research, operational workflows, PM workflows, vertical SaaS opportunities, AI insertion points, automation opportunities,
   "durable obligations", fragmented work, hated execution burden, or where AI should fit into an
   existing workflow. This skill is primarily a thinking and workflow-mapping tool, not a startup idea
   generator.
@@ -124,6 +124,21 @@ For each candidate automation, classify it by AI fit:
 - **Remind**: chase missing inputs or upcoming deadlines.
 - **Reconcile**: compare two representations of the same truth.
 
+For each automation candidate, also name the likely mechanism in broad strokes. Do not default to LLMs. Some automation is better served by deterministic software, API integrations, rules, OCR, classical prediction, or workflow orchestration.
+
+Common mechanism families:
+
+- **System integration / API fill**: fetch or sync trusted data from an external system instead of asking a human to re-enter it.
+- **Rules and state machines**: encode deadlines, required evidence, permissions, status transitions, and escalation paths when the logic is explicit.
+- **OCR / document AI / extraction models**: read invoices, forms, PDFs, screenshots, labels, receipts, or handwritten/printed documents.
+- **LLM text generation**: draft emails, summaries, explanations, checklists, memos, scripts, or user-facing copy where language generation is the work.
+- **LLM reasoning over messy context**: summarize threads, compare evidence, explain conflicts, or propose next steps when inputs are semi-structured and judgment-adjacent.
+- **Embeddings / semantic search / entity resolution**: find similar records, match fuzzy names, cluster related documents, or retrieve prior examples.
+- **Prediction / scoring models**: estimate risk, priority, likelihood of delay, fraud/anomaly probability, churn, default, or escalation need. Use the simplest model that fits the evidence, from rules or logistic regression to tree models or learned rankers.
+- **Optimization / scheduling algorithms**: allocate people, routes, inventory, appointments, or work queues under constraints.
+- **Workflow orchestration**: create tasks, reminders, approvals, handoffs, and audit trails across systems.
+- **Human-in-the-loop review**: require approval where stakes, ambiguity, relationships, or accountability remain high.
+
 Also classify by safety:
 
 - **Autopilot**: low stakes, reversible, clear success criteria.
@@ -160,7 +175,7 @@ Use this sequence:
 4. **Choose the workflows worth modeling deeply**.
 5. **Map the five layers** for each selected workflow.
 6. **Draw a workflow diagram** showing actors, artifacts, states, fragments, and handoffs.
-7. **Identify AI insertion points** based on low-judgment burden, confidence signals, and exception-management potential.
+7. **Identify AI/automation insertion points** based on low-judgment burden, likely mechanism, confidence signals, and exception-management potential.
 8. **Surface intuition**: explain what the workflow representation reveals that was not obvious from the raw interviews or notes.
 9. **Translate into product implications**: explain what the product should capture first, what it should avoid automating, and what prototype or workflow surface would test the model.
 
@@ -193,7 +208,7 @@ For interview or transcript analysis, produce 3-6 workflow candidates, then mode
 Required output elements:
 
 - A **Workflow Candidates** table comparing obligation, fragmentation, burden, and strength.
-- For every deep workflow model: a building-block representation, **Fragment Map** table, Mermaid **Workflow Diagram**, **AI Insertion Points** table, **Exception Queue**, **Intuition Gained**, and **Product Implications**.
+- For every deep workflow model: a building-block representation, **Fragment Map** table, Mermaid **Workflow Diagram**, **AI/Automation Insertion Points** table, **Exception Queue**, **Intuition Gained**, and **Product Implications**.
 - `Intuition Gained` and `Product Implications` must be substantive, not filler. They should name the non-obvious lesson from the representation and the resulting product design consequence.
 
 Use this structure:
@@ -242,10 +257,10 @@ flowchart TD
   F -- yes --> H[Human review]
 ```
 
-### 5. AI Insertion Points
+### 5. AI/Automation Insertion Points
 
-| Step | AI role | Mode | Confidence signal | Human role | Risk |
-|---|---|---|---|---|---|
+| Step | Automation role | Likely mechanism | Mode | Confidence signal | Human role | Risk |
+|---|---|---|---|---|---|---|
 
 ### 6. Exception Queue
 
@@ -256,7 +271,7 @@ flowchart TD
 [Required. Explain the non-obvious understanding created by representing the workflow. Spell out where AI fits, where it does not fit, and why the workflow looks different after mapping the obligation, fragments, states, and exceptions.]
 
 ### 8. Product Implications
-[Required. Translate the workflow model into product judgment: what object the product should capture first, what tables or state machines it needs, what AI should generate/check/route, what humans must approve, what should not be automated, and what prototype would test the workflow.]
+[Required. Translate the workflow model into product judgment: what object the product should capture first, what tables or state machines it needs, which automations should be deterministic/API-driven/model-driven/LLM-driven, what modalities are involved, what confidence signals make automation safe, what humans must approve, what should not be automated, and what prototype would test the workflow. Prefer the simplest mechanism that can safely remove burden.]
 
 ````
 
@@ -268,9 +283,9 @@ Prefer:
 
 - Clear obligation statements.
 - Explicit workflow building blocks.
-- Tables that separate workflow candidates, fragments, AI insertion points, and exceptions.
+- Tables that separate workflow candidates, fragments, AI/automation insertion points, and exceptions.
 - Mermaid diagrams that show state changes, handoffs, fragments, and exceptions.
-- AI insertion points tied to confidence signals and human accountability.
+- AI/automation insertion points tied to likely mechanisms, confidence signals, and human accountability.
 - An `Intuition Gained` section that changes how the reader sees the workflow.
 - A `Product Implications` section that turns the model into concrete product design judgment.
 

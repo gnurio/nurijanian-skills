@@ -21,21 +21,21 @@ analysis, and judges to achieve perfect performance.
 
 ### Step 2: Run Skill Against Test Cases
 
-**To do:**
-For each test case, run the skill and capture output:
+**Automated:**
+```bash
+cd evals
+export ANTHROPIC_API_KEY=sk-ant-...
+node auto-eval.js
+```
 
-```javascript
-// Pseudo-code for LLM integration
-for (const testCase of testCases) {
-  const prompt = `${skillContent}\n\nUser input: ${testCase.input}`;
-  const output = await llm.complete(prompt);
-  saveResult(testCase.id, output);
-}
+**Single test:**
+```bash
+node auto-eval.js --test 001
 ```
 
 **Manual approach:**
-Copy test case input, paste into Claude/Cursor with skill loaded, save output
-to `evals/results/test-{id}.json`
+Copy test case input from `synthetic-data/test-cases.json`, paste into Claude/Cursor
+with skill loaded, save output to `evals/results/test-{id}.json`
 
 ### Step 3: Apply Judges
 

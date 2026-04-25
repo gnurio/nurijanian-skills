@@ -82,24 +82,64 @@ Three binary (Pass/Fail/Borderline) judges:
 2. **Prescription Judge**: Are the fixes appropriate for the root cause and grounded in Robert's Rules?
 3. **Format Judge**: Does the output follow the required structure?
 
-## Running Evals
+## Automated Evaluation
+
+The skill includes a complete automated evaluation pipeline:
 
 ```bash
-# Run skill against test cases (placeholder - needs LLM integration)
-node evals/run-evals.js
+cd evals
 
-# Evaluate outputs with judges (manual or automated)
-# Results go to evals/results/
+# Demo (no API key required)
+node demo-eval.js
+
+# Full evaluation (requires Anthropic API key)
+export ANTHROPIC_API_KEY=sk-ant-...
+node auto-eval.js
+
+# Single test case
+node auto-eval.js --test 001
+
+# Skip judging (faster, just generate outputs)
+node auto-eval.js --skill-only
 ```
 
-## Iteration Workflow
+### Evaluation Pipeline
 
-1. Run skill against synthetic test cases
-2. Judges evaluate outputs
-3. Error analysis identifies failure patterns
-4. Update skill based on error patterns
+1. **Skill Runner** — Executes skill against 20 test cases via LLM API
+2. **Judge Evaluator** — Three LLM-as-judges score each output (Pass/Fail/Borderline)
+3. **Report Generator** — Produces:
+   - `summary.md` — Pass rates vs thresholds
+   - `error-analysis.md` — Categorized failures with recommendations
+   - `detailed.md` — Per-test breakdown with critiques
+
+### Success Thresholds
+
+| Judge | Target | Description |
+|-------|--------|-------------|
+| Stack Diagnosis | 90% | Correctly identifies root cause level(s) |
+| Prescription | 90% | Fixes appropriate and grounded in Robert's Rules |
+| Format | 95% | Output follows required structure |
+
+### Iteration Workflow
+
+1. Run `node auto-eval.js`
+2. Review `summary.md` — are thresholds met?
+3. Read `error-analysis.md` — what patterns emerge?
+4. Update `SKILL.md` based on recommendations
 5. Re-run and validate improvement
-6. Repeat until judges pass consistently
+6. Repeat until all thresholds met
+
+See `evals/README.md` for detailed documentation.
+
+## Manual Evaluation
+
+For manual testing without automation:
+
+```bash
+# Load skill and run single test case
+cat evals/synthetic-data/test-cases.json | jq '.[0].input'
+# Copy output, invoke skill, compare to expected diagnosis
+```
 
 ## Files
 

@@ -1,0 +1,402 @@
+[
+  {
+    "id": "001",
+    "input_type": "meeting_transcript",
+    "root_cause_level": "level_3_process",
+    "context": "startup",
+    "severity": "blocking",
+    "symptom": "meetings_drag_on",
+    "input": "ALICE: Okay, so we need to decide on the Q3 roadmap.\nBOB: I think we should prioritize the API refactor.\nCAROL: Wait, can we talk about the mobile app first? Our users are complaining.\nALICE: Right, so mobile is important, but the API affects everything.\nDAVID: Actually, I wanted to bring up the hiring plan...\nBOB: Can we finish one thing? We were talking about the API.\nCAROL: I don't think we agreed on that. I never agreed to that.\nALICE: [45 minutes later] Let's just table this and meet again next week.\n[Everyone agrees, no decision made]",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - Never established shared definition of Q3 success",
+        "level_2_information": "✗ - No pre-read, no shared data on user complaints vs technical debt",
+        "level_3_process": "✗ - No agenda, no motion on floor, no recognition of speakers, interruptions allowed",
+        "level_4_authority": "? - Unclear if Alice as PM has authority to decide or if this is consensus",
+        "level_5_decision": "✗ - No decision captured, just 'table and meet again'"
+      },
+      "root_causes": ["Level 3 - No parliamentary process", "Level 1 - No shared goals established"],
+      "prescription": "Set agenda with decision items, use motions ('I move we prioritize...'), recognize speakers, require seconds, limit debate with Previous Question"
+    }
+  },
+  {
+    "id": "002",
+    "input_type": "explicit_description",
+    "root_cause_level": "level_4_authority",
+    "context": "enterprise",
+    "severity": "chronic",
+    "symptom": "authority_conflict",
+    "input": "The VP of Engineering and the VP of Product both think they have final say on technical roadmap decisions. This has been going on for 6 months. Engineering keeps building things Product didn't prioritize, and Product keeps adding requirements that Engineering says they never agreed to. The CEO says 'work it out between yourselves.' Both report to the CEO. There's no documented RACI.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - Engineering goals (clean architecture) vs Product goals (feature velocity)",
+        "level_2_information": "✗ - Each side doesn't know what the other committed to",
+        "level_3_process": "✗ - No process for who decides what",
+        "level_4_authority": "✗ - Complete collision, both claim same decision rights",
+        "level_5_decision": "✗ - Decisions made unilaterally by each, not coordinated"
+      },
+      "root_causes": ["Level 4 - Authority collision between VPs"],
+      "prescription": "CEO must clarify decision rights (RACI), document which decisions each VP owns, establish joint decision process for overlapping areas"
+    }
+  },
+  {
+    "id": "003",
+    "input_type": "vague_complaint",
+    "root_cause_level": "multi_level",
+    "context": "cross_functional",
+    "severity": "slowing",
+    "symptom": "silent_resistance",
+    "input": "Our cross-functional project team just doesn't seem to gel. Everyone nods in meetings but then nothing happens. I don't know what's wrong.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "? - May have competing departmental goals not surfaced",
+        "level_2_information": "? - Information may not be reaching all members",
+        "level_3_process": "✗ - 'Nodding in meetings' suggests no real process for surfacing dissent",
+        "level_4_authority": "? - Unclear who can hold people accountable",
+        "level_5_decision": "? - 'Nothing happens' suggests decisions not captured"
+      },
+      "root_causes": ["Multiple levels - Needs probing to determine"],
+      "prescription": "Conduct 1:1s to surface real concerns, check for competing incentives, ensure decisions documented with owners"
+    }
+  },
+  {
+    "id": "004",
+    "input_type": "decision_log",
+    "root_cause_level": "level_5_decision",
+    "context": "non_profit",
+    "severity": "blocking",
+    "symptom": "decisions_revisited",
+    "input": "DECISION LOG:\nJan 15: Board votes 7-2 to move annual gala to November (was June)\nFeb 3: Marketing committee discusses - some members weren't at Jan meeting, question the change\nFeb 20: Board reopens discussion, some members say 'we never really decided'\nMar 1: Vote again, 5-4 to keep November date\nMar 15: Development director says 'the board keeps changing their mind, I can't plan'\nApr 1: Three board members who missed Mar 1 meeting want to revisit again",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - Fundraising vs donor availability vs board availability conflicts",
+        "level_2_information": "✗ - Board members not at meetings not getting proper info",
+        "level_3_process": "✗ - No process for reconsideration, no standard for when to reopen",
+        "level_4_authority": "? - May be confusion about board vs committee authority",
+        "level_5_decision": "✗ - Decisions not captured properly, minutes don't show 7-2 vote clearly, absentees not informed"
+      },
+      "root_causes": ["Level 5 - Decisions not captured/documented properly", "Level 3 - No reconsideration process"],
+      "prescription": "Record minutes with vote counts, notify absent board members of decisions, establish 2/3 threshold for reconsideration within 3 months"
+    }
+  },
+  {
+    "id": "005",
+    "input_type": "explicit_description",
+    "root_cause_level": "level_2_information",
+    "context": "leadership",
+    "severity": "emerging",
+    "symptom": "analysis_paralysis",
+    "input": "The leadership team has been discussing the acquisition for 3 months. We have a data room, we've done 5 presentations, but we can't decide. Half the team thinks we need more analysis, half thinks we have enough. We keep asking the CFO for more scenarios.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "? - May not agree on acquisition strategy",
+        "level_2_information": "✗ - Information asymmetry, some want more data than others",
+        "level_3_process": "✗ - No deadline, no process for determining 'enough' information",
+        "level_4_authority": "? - Unclear if CEO decides or if this is consensus",
+        "level_5_decision": "✗ - No decision, just continuous analysis"
+      },
+      "root_causes": ["Level 2 - Information asymmetry about what's 'enough'", "Level 3 - No process to close debate"],
+      "prescription": "Set decision deadline, use Previous Question to close debate, clarify who decides, define 'sufficient information' standard"
+    }
+  },
+  {
+    "id": "006",
+    "input_type": "meeting_transcript",
+    "root_cause_level": "level_1_goals",
+    "context": "enterprise",
+    "severity": "chronic",
+    "symptom": "authority_conflict",
+    "input": "CHAIR: Let's discuss the cloud migration budget.\nCTO: We need $2M for AWS reserved instances.\nCFO: That's not in the annual budget we approved.\nCTO: But the technical requirements changed.\nCFO: Any spend over $500K needs board approval.\nCTO: That rule is for new initiatives, this is existing infrastructure.\nCFO: Infrastructure overruns still need approval.\nCTO: I've already committed to the vendor.\nCFO: You what? Without approval?",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - CTO goal (technical excellence) vs CFO goal (budget control)",
+        "level_2_information": "✗ - CTO didn't inform CFO before committing",
+        "level_3_process": "✗ - CTO bypassed approval process",
+        "level_4_authority": "✗ - Unclear if CTO has spending authority or needs CFO/board",
+        "level_5_decision": "✗ - CTO made unilateral decision without authority"
+      },
+      "root_causes": ["Level 1 - Competing goals (tech vs finance)", "Level 4 - Unclear spending authority"],
+      "prescription": "Clarify spending authority in bylaws/policy, establish procurement process, align CTO/CFO on shared goals"
+    }
+  },
+  {
+    "id": "007",
+    "input_type": "explicit_description",
+    "root_cause_level": "level_3_process",
+    "context": "startup",
+    "severity": "slowing",
+    "symptom": "meetings_drag_on",
+    "input": "We have 'disagree and commit' as a value but nobody actually commits. Every decision gets re-argued in Slack for days after the meeting. The CEO makes a call, half the team agrees publicly, then keeps debating privately.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "? - May not actually agree on 'disagree and commit'",
+        "level_2_information": "✗ - Private Slack debates show decisions not communicated properly",
+        "level_3_process": "✗ - No process for closing debate and committing",
+        "level_4_authority": "✓ - CEO makes call, authority is clear",
+        "level_5_decision": "✗ - Decisions not captured, no 'final' marker"
+      },
+      "root_causes": ["Level 3 - No process to end debate and enforce commitment"],
+      "prescription": "Use Previous Question to close debate, document decisions with 'final' status, establish no-reopening period"
+    }
+  },
+  {
+    "id": "008",
+    "input_type": "meeting_transcript",
+    "root_cause_level": "level_4_authority",
+    "context": "cross_functional",
+    "severity": "blocking",
+    "symptom": "authority_conflict",
+    "input": "PM: We need to ship this feature by Friday.\nENGINEERING LEAD: That's not enough time for proper testing.\nPM: The client committed to their customer.\nENGINEERING LEAD: I won't release untested code.\nPM: Are you refusing a direct business requirement?\nENGINEERING LEAD: I'm refusing to compromise engineering standards.\nPM: This is a revenue issue. The CEO said revenue is priority one.\nENGINEERING LEAD: And I'm responsible for system stability.\nPM: Who's in charge here?\nENGINEERING LEAD: Good question.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - Revenue vs quality goals in conflict",
+        "level_2_information": "✗ - Client commitment made without engineering input",
+        "level_3_process": "✗ - No process for resolving PM/eng conflicts",
+        "level_4_authority": "✗ - Collision: PM thinks they can set deadlines, Eng thinks they control release",
+        "level_5_decision": "✗ - No decision, standoff"
+      },
+      "root_causes": ["Level 4 - Unclear authority between PM and Engineering Lead"],
+      "prescription": "Document decision rights for product vs engineering, establish escalation path to common authority"
+    }
+  },
+  {
+    "id": "009",
+    "input_type": "decision_log",
+    "root_cause_level": "level_2_information",
+    "context": "enterprise",
+    "severity": "chronic",
+    "symptom": "decisions_revisited",
+    "input": "DECISION LOG:\nQ1: Team decides to use React for new project\nQ2: New architect joins, questions decision, team switches to Vue\nQ3: Another senior dev joins, argues for Svelte, switches again\nQ4: Original React advocate returns from leave, wants to revisit\nCurrent: Team has rewritten same components 3 times, no shipping",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - Shipping vs 'best' technology",
+        "level_2_information": "✗ - New people don't have context on original decision rationale",
+        "level_3_process": "✗ - No bar for reconsideration, new person can reopen any decision",
+        "level_4_authority": "? - Unclear who has final tech authority",
+        "level_5_decision": "✗ - Decisions documented but no permanence"
+      },
+      "root_causes": ["Level 2 - Information loss when people join/leave", "Level 3 - Too easy to reconsider"],
+      "prescription": "Document decision rationale (ADRs), require new evidence to reconsider, set decision permanence period"
+    }
+  },
+  {
+    "id": "010",
+    "input_type": "vague_complaint",
+    "root_cause_level": "level_5_decision",
+    "context": "non_profit",
+    "severity": "blocking",
+    "symptom": "decisions_revisited",
+    "input": "Our board keeps having the same conversation about the strategic plan. We 'agreed' on it 6 months ago but we're still discussing whether it's the right direction. Meanwhile, staff can't execute because they don't know what's actually decided.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "? - May have goal disagreement not surfaced",
+        "level_2_information": "✗ - Staff don't have clear communication of decisions",
+        "level_3_process": "? - Process unclear for when plan is 'final'",
+        "level_4_authority": "? - Unclear who can stop the revisiting",
+        "level_5_decision": "✗ - 'Agreed' but no documented, final decision captured"
+      },
+      "root_causes": ["Level 5 - Decision not captured as final", "Level 2 - Not communicated to stakeholders"],
+      "prescription": "Document strategic plan as board resolution with vote, communicate to staff, set review date (not continuous)"
+    }
+  },
+  {
+    "id": "011",
+    "input_type": "explicit_description",
+    "root_cause_level": "level_3_process",
+    "context": "startup",
+    "severity": "slowing",
+    "symptom": "meetings_drag_on",
+    "input": "We have great discussions in meetings but we never seem to reach conclusions. The founder likes to explore all angles and won't cut off debate. Two hours later everyone's exhausted and we schedule another meeting.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✓ - Generally aligned",
+        "level_2_information": "✓ - Good discussion suggests info sharing",
+        "level_3_process": "✗ - No closure mechanism, founder won't use Previous Question",
+        "level_4_authority": "✓ - Founder has authority",
+        "level_5_decision": "✗ - No decisions reached"
+      },
+      "root_causes": ["Level 3 - No process to close debate"],
+      "prescription": "Set meeting time boxes, assign someone to move Previous Question, use voting to force closure"
+    }
+  },
+  {
+    "id": "012",
+    "input_type": "meeting_transcript",
+    "root_cause_level": "multi_level",
+    "context": "enterprise",
+    "severity": "chronic",
+    "symptom": "analysis_paralysis",
+    "input": "VP: We need to decide on the vendor by EOW.\nDIRECTOR A: I've analyzed Vendor X - they're cheapest.\nDIRECTOR B: But Vendor Y has better security.\nDIRECTOR C: What about Vendor Z? Nobody evaluated them.\nVP: We don't have time for Vendor Z.\nDIRECTOR C: But what if Z is better?\nDIRECTOR A: Can we get an extension?\nVP: The RFP deadline is fixed.\nDIRECTOR B: I need more security documentation from X.\nDIRECTOR A: That'll take 2 weeks.\n[Cycle continues for 6 weeks]",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - Cost vs security vs thoroughness",
+        "level_2_information": "✗ - Incomplete information (Vendor Z), conflicting criteria",
+        "level_3_process": "✗ - No process for determining 'enough' analysis",
+        "level_4_authority": "✗ - Directors can block without accountability",
+        "level_5_decision": "✗ - No decision, deadline missed repeatedly"
+      },
+      "root_causes": ["Level 2 - Information criteria undefined", "Level 3 - No closure mechanism", "Level 4 - Accountability unclear"],
+      "prescription": "Define decision criteria upfront, set information cutoff date, clarify who decides, use vote to close"
+    }
+  },
+  {
+    "id": "013",
+    "input_type": "explicit_description",
+    "root_cause_level": "level_1_goals",
+    "context": "cross_functional",
+    "severity": "chronic",
+    "symptom": "silent_resistance",
+    "input": "Sales keeps promising features to customers that Product hasn't prioritized. Engineering says the roadmap is 'a suggestion, not a commitment.' Marketing announces launch dates that Engineering hasn't agreed to. Everyone blames everyone else.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - Sales (revenue) vs Product (strategy) vs Engineering (quality) vs Marketing (launch) goals conflict",
+        "level_2_information": "✗ - Commitments made without coordination",
+        "level_3_process": "✗ - No process for cross-functional commitment",
+        "level_4_authority": "✗ - Each function claims authority to make commitments",
+        "level_5_decision": "✗ - No shared decision on roadmap"
+      },
+      "root_causes": ["Level 1 - Competing goals between functions"],
+      "prescription": "Align on shared goals (revenue + sustainable delivery), create roadmap as joint decision, establish commitment protocol"
+    }
+  },
+  {
+    "id": "014",
+    "input_type": "vague_complaint",
+    "root_cause_level": "level_4_authority",
+    "context": "non_profit",
+    "severity": "blocking",
+    "symptom": "authority_conflict",
+    "input": "Our executive director and board chair keep stepping on each other's toes. The ED thinks they run the organization. The board chair thinks they oversee the ED. Staff get conflicting directions.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "? - May agree on mission but different approaches",
+        "level_2_information": "✗ - Staff getting conflicting info",
+        "level_3_process": "✗ - No process for resolving ED/Board conflicts",
+        "level_4_authority": "✗ - Bylaws don't clearly define ED vs Board Chair roles",
+        "level_5_decision": "? - Unclear who decides what"
+      },
+      "root_causes": ["Level 4 - Unclear authority between ED and Board Chair"],
+      "prescription": "Review and amend bylaws to clarify ED vs Board authority, document decision rights, establish governance committee"
+    }
+  },
+  {
+    "id": "015",
+    "input_type": "decision_log",
+    "root_cause_level": "level_5_decision",
+    "context": "startup",
+    "severity": "slowing",
+    "symptom": "decisions_revisited",
+    "input": "DECISION LOG:\nWeek 1: Team decides to focus on enterprise customers\nWeek 2: One engineer builds SMB feature anyway 'because it's easy'\nWeek 3: Founder sees SMB feature, gets excited, pivots discussion to SMB\nWeek 4: Team 'reconsiders' enterprise focus\nWeek 5: Sales says they have 3 enterprise deals waiting, why did we pivot?\n[Pattern repeats every 4-6 weeks for 2 years]",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - Enterprise vs SMB - never fully committed",
+        "level_2_information": "✗ - Founder not getting consistent info",
+        "level_3_process": "✗ - Engineer can bypass decision, Founder can reopen without process",
+        "level_4_authority": "? - Unclear if team decision binds everyone",
+        "level_5_decision": "✗ - Decisions not enforced or recorded"
+      },
+      "root_causes": ["Level 5 - Decisions not captured/enforced", "Level 3 - No reconsideration process"],
+      "prescription": "Document strategic decisions, require explicit authorization to deviate, enforce consequences for bypassing"
+    }
+  },
+  {
+    "id": "016",
+    "input_type": "meeting_transcript",
+    "root_cause_level": "level_2_information",
+    "context": "leadership",
+    "severity": "emerging",
+    "symptom": "analysis_paralysis",
+    "input": "CEO: Should we enter the European market?\nCFO: I've run the numbers - NPV positive in year 3.\nCMO: But we don't know the competitive landscape.\nCEO: What do we need to know?\nCMO: Market research, competitor analysis, partner evaluation...\nCTO: And technical infrastructure for GDPR.\nCEO: How long will all that take?\nCMO: 6-9 months.\nCFO: But delaying costs us $2M in first-mover advantage.\n[90 minutes of debating whether to research more or decide now]",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "? - Growth vs caution - may not be aligned",
+        "level_2_information": "✗ - Uncertainty about what's 'enough' information",
+        "level_3_process": "✗ - No process for determining information sufficiency",
+        "level_4_authority": "? - Unclear if CEO decides or this is consensus",
+        "level_5_decision": "✗ - No decision"
+      },
+      "root_causes": ["Level 2 - Information sufficiency undefined", "Level 3 - No decision process"],
+      "prescription": "Define 'minimum viable information' for market entry, set decision deadline, clarify who decides"
+    }
+  },
+  {
+    "id": "017",
+    "input_type": "explicit_description",
+    "root_cause_level": "level_3_process",
+    "context": "enterprise",
+    "severity": "slowing",
+    "symptom": "meetings_drag_on",
+    "input": "Our town halls have become unproductive. 200 people, anyone can ask anything, the CEO tries to answer everything, and 2 hours later nobody remembers what was decided. The agenda is always 'updates and Q&A.'",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✓ - Generally aligned on business",
+        "level_2_information": "✓ - Updates provide info",
+        "level_3_process": "✗ - No structure, no motions, no decisions, Q&A only",
+        "level_4_authority": "? - Unclear what CEO can decide vs what needs consensus",
+        "level_5_decision": "✗ - Town halls don't produce decisions"
+      },
+      "root_causes": ["Level 3 - No decision-making process in town halls"],
+      "prescription": "Separate info-sharing (updates) from decision-making, add decision items to agenda, use structured format"
+    }
+  },
+  {
+    "id": "018",
+    "input_type": "meeting_transcript",
+    "root_cause_level": "level_1_goals",
+    "context": "cross_functional",
+    "severity": "chronic",
+    "symptom": "silent_resistance",
+    "input": "LEAD: Let's align on the QOKRs.\nENG: Our objective is zero critical bugs.\nSALES: Ours is hit $5M ARR.\nPRODUCT: Ours is NPS > 50.\nENG: Those aren't aligned.\nSALES: They're all important.\nPRODUCT: Can't we have all three?\nENG: You're asking us to prioritize bug fixes AND ship features for $5M ARR. That's incompatible.\nSALES: [later, to team] Just hit the number, quality can wait.\nENG: [later, to team] Ship clean code, ignore sales pressure.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "✗ - Zero bugs vs $5M ARR vs NPS - fundamentally incompatible without prioritization",
+        "level_2_information": "✗ - Teams working from different priorities",
+        "level_3_process": "✗ - QOKR process allows incompatible objectives",
+        "level_4_authority": "? - No one forced prioritization",
+        "level_5_decision": "✗ - No decision on priority order"
+      },
+      "root_causes": ["Level 1 - Incompatible goals not resolved"],
+      "prescription": "Force rank objectives, establish which takes precedence when in conflict, align incentives"
+    }
+  },
+  {
+    "id": "019",
+    "input_type": "vague_complaint",
+    "root_cause_level": "multi_level",
+    "context": "startup",
+    "severity": "blocking",
+    "symptom": "analysis_paralysis",
+    "input": "We've been 'about to' launch for 6 months. Every time we're close, someone finds a reason we need to fix something first. The founders can't agree on what's 'good enough.'",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "? - May disagree on launch criteria",
+        "level_2_information": "✗ - No shared definition of 'good enough'",
+        "level_3_process": "✗ - No process for determining launch readiness",
+        "level_4_authority": "✗ - Multiple founders, unclear who decides",
+        "level_5_decision": "✗ - Launch decision keeps getting un-made"
+      },
+      "root_causes": ["Level 2 - No definition of ready", "Level 3 - No launch process", "Level 4 - Unclear authority between founders"],
+      "prescription": "Define MVP criteria upfront, establish launch decision process, clarify founder decision rights"
+    }
+  },
+  {
+    "id": "020",
+    "input_type": "explicit_description",
+    "root_cause_level": "level_4_authority",
+    "context": "enterprise",
+    "severity": "chronic",
+    "symptom": "authority_conflict",
+    "input": "We have a 'two-in-a-box' leadership model. The Engineering Director and Product Director are supposed to co-lead. But they disagree constantly and neither can overrule the other. Escalations go to their VP who says 'work it out.' Their teams are caught in the middle.",
+    "expected_diagnosis": {
+      "stack_assessment": {
+        "level_1_goals": "? - May have goal conflicts",
+        "level_2_information": "? - Teams may have asymmetric info",
+        "level_3_process": "✗ - No tiebreaker mechanism",
+        "level_4_authority": "✗ - Designed to have no single authority, escalation fails",
+        "level_5_decision": "✗ - No decisions, gridlock"
+      },
+      "root_causes": ["Level 4 - 'Two-in-a-box' design creates authority collision"],
+      "prescription": "Restructure to single authority, or define explicit tiebreaker process, clarify escalation to VP"
+    }
+  }
+]

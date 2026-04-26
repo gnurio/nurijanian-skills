@@ -43,7 +43,7 @@ Do not discard weak workflows immediately. Label them:
 - **Partial workflow candidate**: one gate is weak or unclear.
 - **Weak candidate**: the pain is optional, one-off, or mostly high-judgment with no repeatable representation.
 
-## Five-Layer Workflow Model
+## Workflow Model Layers
 
 For every important workflow, map the building blocks through these layers.
 
@@ -103,6 +103,119 @@ Create a fragment map. This table is required for every deep workflow model beca
 |---|---|---|---|---|
 ```
 
+### Layer 3.5: Identify the action kernel and friction kernel
+
+Before proposing automation, decompose each workflow step into the human action it contains.
+
+Do not jump from "workflow step" to "AI mechanism." First ask:
+
+- What type of action is the human performing?
+- Which part of that action creates friction?
+- What information, evidence, confidence, language, timing, or authority would let them move forward?
+- Which part can be prepared by software without taking over accountability?
+- Which part must remain visible because it carries judgment, relationship risk, legitimacy, or responsibility?
+
+Use these action kernels:
+
+- **Find**: locate the relevant record, message, document, person, or prior example.
+- **Extract**: pull structured facts from messy input.
+- **Compare**: reconcile two representations of the same truth.
+- **Classify**: assign type, status, owner, priority, risk, or account code.
+- **Decide**: choose whether to proceed, hold, escalate, approve, reject, or defer.
+- **Compose**: write language, an email, a memo, a note, a checklist, or an explanation.
+- **Chase**: request missing input, payment, evidence, approval, or clarification.
+- **Monitor**: track time, deadline risk, stale work, status, or drift.
+- **Approve**: take responsibility for a proposed action or outcome.
+- **Repair**: resolve an exception, conflict, relationship issue, or incorrect state.
+
+Then identify the friction kernel:
+
+- **Search friction**: finding the right thing.
+- **Context assembly friction**: gathering enough surrounding facts.
+- **Mapping friction**: connecting one representation to another.
+- **Uncertainty friction**: knowing whether the answer is safe enough.
+- **Evidence friction**: knowing whether proof is sufficient.
+- **Blank-page friction**: deciding what to write or say.
+- **Social friction**: saying it with the right tone or relationship posture.
+- **Memory friction**: remembering to act at the right time.
+- **Attention friction**: deciding what deserves interruption.
+- **Legitimacy friction**: making the decision acceptable to others.
+- **Accountability friction**: being able to explain who decided and why.
+
+For each meaningful step, produce an action kernel table:
+
+```markdown
+| Step | Human action kernel | Friction kernel | Missing ingredient | What software can prepare | What must stay human |
+|---|---|---|---|---|---|
+```
+
+### Layer 3.6: Split ambient absorption from control surface
+
+Classify each workflow step by whether it should disappear into the background or remain surfaced for control.
+
+Do not assume every automation needs a visible UI. Some work should be absorbed quietly. But do not hide work that carries uncertainty, consequence, authority, relationship risk, legitimacy, or audit requirements.
+
+Classify each step:
+
+- **Ambient absorption**: system executes quietly; user only sees summary or audit trail.
+- **Ambient with receipt**: system executes quietly but leaves a visible record.
+- **Batch control**: many low-risk actions grouped for quick approval.
+- **Exception control**: only uncertain, blocked, or high-consequence items surfaced.
+- **Human-led control**: human must decide, approve, repair, or take responsibility.
+- **Do not automate**: judgment, relationship, legitimacy, or accountability is too central.
+
+A step can go ambient when the correct answer is objective, confidence is high, errors are cheap or reversible, the action is routine, relationship stakes are low, an audit trail is enough, or the user has already approved a reusable rule.
+
+A step needs a control surface when money moves, legal or compliance exposure exists, customer/staff relationships matter, evidence is incomplete, confidence is low, precedent is weak, someone must explain the decision later, or the action changes authority, status, or commitments.
+
+Use this table:
+
+```markdown
+| Step | Action kernel | Friction kernel | Can it go ambient? | Why / why not | Surface type | User sees |
+|---|---|---|---|---|---|---|
+```
+
+### Layer 3.7: Convert friction into product primitives
+
+After identifying the action kernel, friction kernel, and ambient/control split, translate each automation opportunity into a concrete product primitive.
+
+Do not stop at abstract labels like "LLM", "rules", "API sync", "pre-check", or "workflow orchestration." Those are not designable yet.
+
+For each opportunity, specify:
+
+- **Product primitive**: the UI/workflow object the user would actually see or interact with.
+- **System behavior**: what the software does in concrete terms.
+- **Inputs used**: which records, messages, documents, fields, or history the system uses.
+- **Output produced**: what artifact, recommendation, state change, draft, warning, or queue item appears.
+- **User control**: what the human can approve, edit, reject, override, batch, delegate, or escalate.
+- **Build spark**: one sentence concrete enough that a designer could sketch it and a developer could identify the data structures, integrations, or model work.
+
+Use product primitives such as:
+
+- **Smart field**
+- **Suggested mapping**
+- **Exception card**
+- **Review queue**
+- **Readiness checklist**
+- **Evidence packet**
+- **Confidence badge**
+- **Batch approval tray**
+- **Diff view**
+- **Chase draft**
+- **Escalation banner**
+- **Audit timeline**
+- **Simulation / preview**
+- **Override rule**
+- **Delegation task**
+- **Stale-work resurfacer**
+
+Use this table:
+
+```markdown
+| Step | Human action kernel | Friction kernel | Missing ingredient | Surface type | Product primitive | System behavior | Inputs used | Output produced | User control | Build spark |
+|---|---|---|---|---|---|---|---|---|---|---|
+```
+
 ### Layer 4: Automate the low-judgment burden
 
 Ask:
@@ -110,10 +223,11 @@ Ask:
 - Which repeated actions can be matched, classified, reminded, routed, drafted, reconciled, checked, or escalated?
 - Which actions have clear confidence signals?
 - What can be automated without pretending to own high-stakes judgment?
+- Which surfaced product primitives still need a mechanism, and which steps should simply become ambient?
 
 Good automation candidates include matching records, extracting fields, classifying documents, chasing missing inputs, preparing drafts, reconciling numbers, detecting inconsistencies, routing approvals, creating reminders, and generating audit trails.
 
-For each candidate automation, classify it by AI fit:
+For each candidate automation, classify it by automation fit:
 
 - **Extract**: pull structured data from messy inputs.
 - **Classify**: assign type, status, priority, owner, risk, or next step.
@@ -124,7 +238,7 @@ For each candidate automation, classify it by AI fit:
 - **Remind**: chase missing inputs or upcoming deadlines.
 - **Reconcile**: compare two representations of the same truth.
 
-For each automation candidate, also name the likely mechanism in broad strokes. Do not default to LLMs. Some automation is better served by deterministic software, API integrations, rules, OCR, classical prediction, or workflow orchestration.
+For each automation candidate, name the likely mechanism only after the action kernel, friction kernel, surface type, and product primitive are clear. Do not default to LLMs. Some automation is better served by deterministic software, API integrations, rules, OCR, classical prediction, or workflow orchestration.
 
 Common mechanism families:
 
@@ -173,11 +287,14 @@ Use this sequence:
 2. **Name each workflow concretely**: avoid vague categories like "alignment" or "compliance." Use names like "stakeholder argument preparation" or "subcontractor insurance certificate renewal."
 3. **Run the three gates**: durable obligation, fragmented representation, hated burden.
 4. **Choose the workflows worth modeling deeply**.
-5. **Map the five layers** for each selected workflow.
-6. **Draw a workflow diagram** showing actors, artifacts, states, fragments, and handoffs.
-7. **Identify AI/automation insertion points** based on low-judgment burden, likely mechanism, confidence signals, and exception-management potential.
-8. **Surface intuition**: explain what the workflow representation reveals that was not obvious from the raw interviews or notes.
-9. **Translate into product implications**: explain what the product should capture first, what it should avoid automating, and what prototype or workflow surface would test the model.
+5. **Map the workflow layers** for each selected workflow.
+6. **Identify action kernels and friction kernels** before proposing automation.
+7. **Split ambient absorption from control surfaces** so invisible automation and surfaced exception management are not blurred together.
+8. **Convert surfaced friction into product primitives** concrete enough for a designer to sketch and a developer to scope.
+9. **Draw a workflow diagram** showing actors, artifacts, states, fragments, ambient actions, surfaced controls, and handoffs.
+10. **Identify AI/automation insertion points** based on low-judgment burden, product primitives, likely mechanism, confidence signals, and exception-management potential.
+11. **Surface intuition**: explain what the workflow representation reveals that was not obvious from the raw interviews or notes.
+12. **Translate into product implications**: explain what the product should capture first, what it should avoid automating, and what prototype or workflow surface would test the model.
 
 ## Strong Obligation Arenas
 
@@ -208,7 +325,7 @@ For interview or transcript analysis, produce 3-6 workflow candidates, then mode
 Required output elements:
 
 - A **Workflow Candidates** table comparing obligation, fragmentation, burden, and strength.
-- For every deep workflow model: a building-block representation, **Fragment Map** table, Mermaid **Workflow Diagram**, **AI/Automation Insertion Points** table, **Exception Queue**, **Intuition Gained**, and **Product Implications**.
+- For every deep workflow model: a building-block representation, **Fragment Map** table, **Action/Friction Kernel** table, **Ambient vs Control** table, **Product Primitives** table, Mermaid **Workflow Diagram**, **AI/Automation Insertion Points** table, **Exception Queue**, **Intuition Gained**, and **Product Implications**.
 - `Intuition Gained` and `Product Implications` must be substantive, not filler. They should name the non-obvious lesson from the representation and the resulting product design consequence.
 
 Use this structure:
@@ -244,34 +361,51 @@ Use this structure:
 | Fragment | Contains | Owner | Update frequency | Failure mode |
 |---|---|---|---|---|
 
-### 4. Workflow Diagram
+### 4. Action/Friction Kernel
+
+| Step | Human action kernel | Friction kernel | Missing ingredient | What software can prepare | What must stay human |
+|---|---|---|---|---|---|
+
+### 5. Ambient vs Control
+
+| Step | Action kernel | Friction kernel | Can it go ambient? | Why / why not | Surface type | User sees |
+|---|---|---|---|---|---|---|
+
+### 6. Product Primitives
+
+| Step | Human action kernel | Friction kernel | Missing ingredient | Surface type | Product primitive | System behavior | Inputs used | Output produced | User control | Build spark |
+|---|---|---|---|---|---|---|---|---|---|---|
+
+### 7. Workflow Diagram
 
 ```mermaid
 flowchart TD
   A[Trigger / obligation] --> B[Capture inputs]
   B --> C[Represent entities and states]
   C --> D[Connect fragments]
-  D --> E[Low-judgment actions]
-  E --> F{Exception?}
-  F -- no --> G[Complete / audit trail]
-  F -- yes --> H[Human review]
+  D --> E{Ambient or control?}
+  E -- ambient --> F[Execute quietly with receipt]
+  E -- control --> G[Surface product primitive]
+  G --> H{Exception?}
+  H -- no --> I[Batch approve or complete]
+  H -- yes --> J[Human review]
 ```
 
-### 5. AI/Automation Insertion Points
+### 8. AI/Automation Insertion Points
 
-| Step | Automation role | Likely mechanism | Mode | Confidence signal | Human role | Risk |
-|---|---|---|---|---|---|---|
+| Step | Product primitive | Automation role | Likely mechanism | Mode | Confidence signal | Human control surface | Risk |
+|---|---|---|---|---|---|---|---|
 
-### 6. Exception Queue
+### 9. Exception Queue
 
 | Exception | Why surfaced | Evidence shown | Suggested action | Human decision |
 |---|---|---|---|---|
 
-### 7. Intuition Gained
+### 10. Intuition Gained
 [Required. Explain the non-obvious understanding created by representing the workflow. Spell out where AI fits, where it does not fit, and why the workflow looks different after mapping the obligation, fragments, states, and exceptions.]
 
-### 8. Product Implications
-[Required. Translate the workflow model into product judgment: what object the product should capture first, what tables or state machines it needs, which automations should be deterministic/API-driven/model-driven/LLM-driven, what modalities are involved, what confidence signals make automation safe, what humans must approve, what should not be automated, and what prototype would test the workflow. Prefer the simplest mechanism that can safely remove burden.]
+### 11. Product Implications
+[Required. Translate the workflow model into product judgment: what object the product should capture first, what tables or state machines it needs, which steps should become ambient, which need a control surface, which product primitives should be designed, which automations should be deterministic/API-driven/model-driven/LLM-driven, what modalities are involved, what confidence signals make automation safe, what humans must approve, what should not be automated, and what prototype would test the workflow. Prefer the simplest mechanism that can safely remove burden.]
 
 ````
 
@@ -283,9 +417,9 @@ Prefer:
 
 - Clear obligation statements.
 - Explicit workflow building blocks.
-- Tables that separate workflow candidates, fragments, AI/automation insertion points, and exceptions.
-- Mermaid diagrams that show state changes, handoffs, fragments, and exceptions.
-- AI/automation insertion points tied to likely mechanisms, confidence signals, and human accountability.
+- Tables that separate workflow candidates, fragments, action/friction kernels, ambient vs control decisions, product primitives, AI/automation insertion points, and exceptions.
+- Mermaid diagrams that show state changes, handoffs, fragments, ambient actions, surfaced controls, and exceptions.
+- AI/automation insertion points tied to product primitives, likely mechanisms, confidence signals, and human accountability.
 - An `Intuition Gained` section that changes how the reader sees the workflow.
 - A `Product Implications` section that turns the model into concrete product design judgment.
 
@@ -294,7 +428,10 @@ Avoid:
 - Generic startup idea lists.
 - "AI assistant for X" labels.
 - Automation before representation.
+- Mechanism labels before action/friction analysis.
+- Product ideas that a designer could not sketch or a developer could not scope.
 - Treating all pain as equally automatable.
+- Treating every automation as something that needs a visible UI.
 - Ignoring where the source of truth currently lives.
 - Ending with analysis but no product implications.
 - Producing prose when a table would expose the structure more clearly.

@@ -24,6 +24,13 @@ const CURSOR_SKILLS_DIR = path.join(HOME, '.cursor', 'skills');
 const CURSOR_RULES_DIR = path.join(HOME, '.cursor', 'rules');
 const CODEX_DIR = path.join(HOME, '.codex');
 
+const PMOS_BASE = path.join(
+  HOME,
+  'Library/Mobile Documents/iCloud~md~obsidian/Documents/EVERNOTE 2025/05 PRODMGMT.WORLD/pm-os'
+);
+const PMOS_CLAUDE_SKILLS_DIR = path.join(PMOS_BASE, '.claude', 'skills');
+const PMOS_CURSOR_SKILLS_DIR = path.join(PMOS_BASE, '.cursor', 'skills');
+
 // Legacy install locations to clean up from the old namespaced layout.
 const LEGACY_CLAUDE = path.join(CLAUDE_SKILLS_DIR, 'pm-alignment');
 const LEGACY_CURSOR = path.join(CURSOR_RULES_DIR, 'pm-alignment');
@@ -31,11 +38,12 @@ const LEGACY_CODEX = path.join(CODEX_DIR, 'pm-alignment.md');
 
 function parseArgs(argv) {
   const flags = new Set(argv);
-  const hasTargetFlag = ['--claude', '--cursor', '--codex'].some((t) => flags.has(t));
+  const hasTargetFlag = ['--claude', '--cursor', '--codex', '--pmos'].some((t) => flags.has(t));
   return {
     claude: flags.has('--claude') || !hasTargetFlag,
     cursor: flags.has('--cursor') || !hasTargetFlag,
     codex: flags.has('--codex') || !hasTargetFlag,
+    pmos: flags.has('--pmos'),
     link: flags.has('--link'),
     clean: flags.has('--clean'),
     uninstall: flags.has('--uninstall'),
@@ -49,10 +57,11 @@ function printHelp() {
 Usage:
   npx nurijanian-skills [options]
 
-Targets (default: all):
+Targets (default: all except --pmos):
   --claude     Install to Claude Code (~/.claude/skills/<skill>/)
   --cursor     Install to Cursor (~/.cursor/skills/<skill>/)
   --codex      Install to Codex (~/.codex/nurijanian-skills.md)
+  --pmos       Copy (not symlink) into pm-os project for distribution
 
 Modes:
   --link       Symlink source dirs for local dev (Claude Code and Cursor)
@@ -63,7 +72,11 @@ Modes:
 }
 
 function rmIfExists(target) {
-  if (fs.existsSync(target) || fs.lstatSync(target, { throwIfNoEntry: false })) {
+  const stat = fs.lstatSync(target, { throwIfNoEntry: false });
+  if (!stat) return;
+  if (stat.isSymbolicLink()) {
+    fs.unlinkSync(target);
+  } else {
     fs.rmSync(target, { recursive: true, force: true });
   }
 }
@@ -177,6 +190,22 @@ function installCodex() {
   console.log(`\nCodex: installed all skills as a single instructions file: ${dest}`);
 }
 
+function syncPmos() {
+  for (const dir of [PMOS_CLAUDE_SKILLS_DIR, PMOS_CURSOR_SKILLS_DIR]) {
+    if (!fs.existsSync(dir)) {
+      console.warn(`  skipping ${dir} (not found)`);
+      continue;
+    }
+    for (const skill of MANIFEST.skills) {
+      const src = path.join(ROOT, skill.dir);
+      const dest = path.join(dir, skill.name);
+      rmIfExists(dest);
+      copyDir(src, dest);
+    }
+    console.log(`pm-os: synced ${MANIFEST.skills.length} skills to ${dir}`);
+  }
+}
+
 function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (opts.help) return printHelp();
@@ -196,6 +225,7 @@ function main() {
   if (opts.claude) installClaudeCode(opts);
   if (opts.cursor) installCursor(opts);
   if (opts.codex) installCodex();
+  if (opts.pmos) syncPmos();
 
   console.log('\nDone. Re-run this command any time you update a skill source file.');
 }

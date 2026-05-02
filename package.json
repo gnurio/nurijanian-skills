@@ -10,7 +10,8 @@
   "scripts": {
     "install:local": "node bin/install.js",
     "install:link": "node bin/install.js --link",
-    "uninstall:local": "node bin/install.js --uninstall"
+    "uninstall:local": "node bin/install.js --uninstall",
+    "sync:pmos": "node bin/install.js --pmos"
   },
   "files": [
     "bin/",

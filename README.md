@@ -126,6 +126,18 @@ Covers all 45 rules, 19 common fallacies, 3 definition rules, deductive forms (m
 
 ---
 
+### Make Requirements Great
+
+Review existing requirements or turn raw context into strong requirements using an 18-characteristic quality framework: unambiguous, clear, cohesive, consistent, conformant, current, modifiable, traceable, relevant, unique, categorised, complete, correct, concise, testable, implementation-independent, owned, and feasible.
+
+Use for PRDs, specs, user stories, acceptance criteria, BRDs, FRDs, requirements catalogues, requirements traceability, requirements audits, or feature notes that need to become formal requirements.
+
+```
+/make-requirements-great
+```
+
+---
+
 ### Vibe Code Leaf Finder
 
 Audit a codebase and classify every file as **LEAF** (safe to vibe code freely), **BRANCH** (AI can draft, human reviews structural decisions), or **TRUNK** (human writes every line). Produces a `LEAF_REPORT.md` with a classification table, suggested stress tests per leaf file, and a plain-English summary for non-engineers.

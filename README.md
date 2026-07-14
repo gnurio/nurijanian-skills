@@ -17,7 +17,7 @@ Installs all skills into Claude Code, Cursor, and Codex. Pass flags to pick targ
 ```bash
 npx nurijanian-skills --claude   # Claude Code only → ~/.claude/skills/<skill>/
 npx nurijanian-skills --cursor   # Cursor only      → ~/.cursor/skills/<skill>/
-npx nurijanian-skills --codex    # Codex only       → ~/.codex/nurijanian-skills.md
+npx nurijanian-skills --codex    # Codex only       → ~/.codex/skills/<skill>/
 ```
 
 Combine flags to target multiple tools (`--claude --cursor`).
@@ -31,7 +31,7 @@ node bin/install.js               # copy mode
 node bin/install.js --link        # symlink mode (live-edit source → changes hit Claude Code instantly)
 ```
 
-`--link` applies to Claude Code and Cursor (directory-form skills). Codex always copies because its format is derived from SKILL.md at install time.
+`--link` applies to Claude Code, Cursor, and Codex directory-form skills.
 
 ### Where things land
 
@@ -39,7 +39,7 @@ node bin/install.js --link        # symlink mode (live-edit source → changes h
 |-------------|------------------------------------------|-----------------------------------|
 | Claude Code | `~/.claude/skills/<skill>/SKILL.md`      | `/skill-name`                     |
 | Cursor      | `~/.cursor/skills/<skill>/SKILL.md`      | `/skill-name`                     |
-| Codex       | `~/.codex/nurijanian-skills.md`          | Skills embedded as instructions   |
+| Codex       | `~/.codex/skills/<skill>/SKILL.md`       | `/skill-name`                     |
 
 ## Uninstall
 
@@ -165,6 +165,18 @@ The core move is to represent the work before proposing automation, so product s
 
 ```
 /workflow-trellis
+```
+
+---
+
+### Reasons People Buy
+
+Ground persuasive writing in a real reason people buy before reaching for features or mechanisms. The skill uses 15 buying reasons, 8 deeper human drives, and buyer-journey checks to make copy outcome-led instead of feature-led.
+
+Use for landing pages, ads, offers, positioning, subscription copy, or audits where the question is "why would anyone buy this?"
+
+```
+/reasons-people-buy
 ```
 
 ---

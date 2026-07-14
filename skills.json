@@ -72,6 +72,11 @@
       "name": "corporate-misalignment-finder",
       "dir": "skills/corporate-misalignment-finder",
       "description": "Find, diagnose, and fix misalignment in corporate settings using parliamentary procedure principles from Robert's Rules of Order — use when teams are stuck, decisions aren't being made, meetings are dysfunctional, or authority is unclear"
+    },
+    {
+      "name": "reasons-people-buy",
+      "dir": "skills/reasons-people-buy",
+      "description": "Ground persuasive writing in a real reason people buy — use for benefit-led copy, landing pages, ads, offers, positioning, and feature-speak audits"
     }
   ]
 }

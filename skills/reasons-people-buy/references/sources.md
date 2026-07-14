@@ -1,6 +1,6 @@
 # Source material
 
-Content extracted from the four source documents behind this skill. Everything the skill's spine rests on is encoded here in full.
+Content extracted from the three source documents behind this skill. Everything the skill's spine rests on is encoded here in full.
 
 ## 1. The 15 reasons people buy stuff
 

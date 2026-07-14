@@ -17,7 +17,7 @@ Installs all skills into Claude Code, Cursor, and Codex. Pass flags to pick targ
 ```bash
 npx nurijanian-skills --claude   # Claude Code only → ~/.claude/skills/<skill>/
 npx nurijanian-skills --cursor   # Cursor only      → ~/.cursor/skills/<skill>/
-npx nurijanian-skills --codex    # Codex only       → ~/.codex/nurijanian-skills.md
+npx nurijanian-skills --codex    # Codex only       → ~/.codex/skills/<skill>/
 ```
 
 Combine flags to target multiple tools (`--claude --cursor`).
@@ -31,7 +31,7 @@ node bin/install.js               # copy mode
 node bin/install.js --link        # symlink mode (live-edit source → changes hit Claude Code instantly)
 ```
 
-`--link` applies to Claude Code and Cursor (directory-form skills). Codex always copies because its format is derived from SKILL.md at install time.
+`--link` applies to Claude Code, Cursor, and Codex directory-form skills.
 
 ### Where things land
 
@@ -39,7 +39,7 @@ node bin/install.js --link        # symlink mode (live-edit source → changes h
 |-------------|------------------------------------------|-----------------------------------|
 | Claude Code | `~/.claude/skills/<skill>/SKILL.md`      | `/skill-name`                     |
 | Cursor      | `~/.cursor/skills/<skill>/SKILL.md`      | `/skill-name`                     |
-| Codex       | `~/.codex/nurijanian-skills.md`          | Skills embedded as instructions   |
+| Codex       | `~/.codex/skills/<skill>/SKILL.md`       | `/skill-name`                     |
 
 ## Uninstall
 

@@ -23,6 +23,7 @@ const CLAUDE_SKILLS_DIR = path.join(HOME, '.claude', 'skills');
 const CURSOR_SKILLS_DIR = path.join(HOME, '.cursor', 'skills');
 const CURSOR_RULES_DIR = path.join(HOME, '.cursor', 'rules');
 const CODEX_DIR = path.join(HOME, '.codex');
+const CODEX_SKILLS_DIR = path.join(CODEX_DIR, 'skills');
 
 const PMOS_BASE = path.join(
   HOME,
@@ -35,6 +36,7 @@ const PMOS_CURSOR_SKILLS_DIR = path.join(PMOS_BASE, '.cursor', 'skills');
 const LEGACY_CLAUDE = path.join(CLAUDE_SKILLS_DIR, 'pm-alignment');
 const LEGACY_CURSOR = path.join(CURSOR_RULES_DIR, 'pm-alignment');
 const LEGACY_CODEX = path.join(CODEX_DIR, 'pm-alignment.md');
+const LEGACY_CODEX_BUNDLE = path.join(CODEX_DIR, `${MANIFEST.name}.md`);
 
 function parseArgs(argv) {
   const flags = new Set(argv);
@@ -60,11 +62,11 @@ Usage:
 Targets (default: all except --pmos):
   --claude     Install to Claude Code (~/.claude/skills/<skill>/)
   --cursor     Install to Cursor (~/.cursor/skills/<skill>/)
-  --codex      Install to Codex (~/.codex/nurijanian-skills.md)
+  --codex      Install to Codex (~/.codex/skills/<skill>/)
   --pmos       Copy (not symlink) into pm-os project for distribution
 
 Modes:
-  --link       Symlink source dirs for local dev (Claude Code and Cursor)
+  --link       Symlink source dirs for local dev (Claude Code, Cursor, and Codex)
   --clean      Remove previously installed skills before installing
   --uninstall  Remove installed skills and exit
   --help       Show this message
@@ -97,10 +99,6 @@ function copyDir(src, dest) {
   }
 }
 
-function readSkillMarkdown(skill) {
-  return fs.readFileSync(path.join(ROOT, skill.dir, 'SKILL.md'), 'utf8');
-}
-
 function cleanTargets(opts) {
   if (opts.claude) {
     rmIfExists(LEGACY_CLAUDE);
@@ -117,7 +115,10 @@ function cleanTargets(opts) {
   }
   if (opts.codex) {
     rmIfExists(LEGACY_CODEX);
-    rmIfExists(path.join(CODEX_DIR, `${MANIFEST.name}.md`));
+    rmIfExists(LEGACY_CODEX_BUNDLE);
+    for (const skill of MANIFEST.skills) {
+      rmIfExists(path.join(CODEX_SKILLS_DIR, skill.name));
+    }
   }
 }
 
@@ -165,29 +166,26 @@ function installCursor(opts) {
   }
 }
 
-function installCodex() {
-  fs.mkdirSync(CODEX_DIR, { recursive: true });
+function installCodex(opts) {
+  fs.mkdirSync(CODEX_SKILLS_DIR, { recursive: true });
   rmIfExists(LEGACY_CODEX);
-  const lines = [
-    `# ${MANIFEST.name} skills`,
-    '',
-    MANIFEST.description,
-    '',
-    'The following skills are available. When the user triggers one by name, follow its instructions exactly.',
-    '',
-  ];
+  rmIfExists(LEGACY_CODEX_BUNDLE);
   for (const skill of MANIFEST.skills) {
-    const body = readSkillMarkdown(skill);
-    const stripped = body.replace(/^---\n[\s\S]*?---\n/, '').trim();
-    lines.push('---');
-    lines.push(`## Skill: ${skill.name}`);
-    lines.push('');
-    lines.push(stripped);
-    lines.push('');
+    const src = path.join(ROOT, skill.dir);
+    const dest = path.join(CODEX_SKILLS_DIR, skill.name);
+    rmIfExists(dest);
+    if (opts.link) {
+      fs.symlinkSync(src, dest);
+    } else {
+      copyDir(src, dest);
+    }
   }
-  const dest = path.join(CODEX_DIR, `${MANIFEST.name}.md`);
-  fs.writeFileSync(dest, lines.join('\n'));
-  console.log(`\nCodex: installed all skills as a single instructions file: ${dest}`);
+  console.log(
+    `\nCodex: installed ${MANIFEST.skills.length} skills to ${CODEX_SKILLS_DIR} (${opts.link ? 'symlinked' : 'copied'})`
+  );
+  for (const skill of MANIFEST.skills) {
+    console.log(`  /${skill.name}`);
+  }
 }
 
 function syncPmos() {
@@ -216,15 +214,11 @@ function main() {
     return;
   }
 
-  if (opts.link && opts.codex) {
-    console.warn('Note: --link applies to directory-based targets; Codex will still copy into one instructions file.');
-  }
-
   if (opts.clean) cleanTargets(opts);
 
   if (opts.claude) installClaudeCode(opts);
   if (opts.cursor) installCursor(opts);
-  if (opts.codex) installCodex();
+  if (opts.codex) installCodex(opts);
   if (opts.pmos) syncPmos();
 
   console.log('\nDone. Re-run this command any time you update a skill source file.');

@@ -169,6 +169,18 @@ The core move is to represent the work before proposing automation, so product s
 
 ---
 
+### Reasons People Buy
+
+Ground persuasive writing in a real reason people buy before reaching for features or mechanisms. The skill uses 15 buying reasons, 8 deeper human drives, and buyer-journey checks to make copy outcome-led instead of feature-led.
+
+Use for landing pages, ads, offers, positioning, subscription copy, or audits where the question is "why would anyone buy this?"
+
+```
+/reasons-people-buy
+```
+
+---
+
 ## Contributing
 
 To add a new skill:

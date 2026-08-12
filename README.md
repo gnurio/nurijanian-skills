@@ -181,6 +181,18 @@ Use for landing pages, ads, offers, positioning, subscription copy, or audits wh
 
 ---
 
+### Vault Brain
+
+Give every concept in a compiled Obsidian vault its own note. Concepts written as headings inside a per-folder `CONCEPTS.md` have no address, so `[[concept]]` links resolve to nothing, the graph shows no concept network, and the same idea gets re-derived folder after folder. One note per concept fixes all three — and raw notes gain backlinks without being modified at all.
+
+Ships its own worklists: concepts that need a page, titles that are topic buckets rather than claims, and near-identical concepts left for you to merge or keep.
+
+```
+/vault-brain
+```
+
+---
+
 ## Contributing
 
 To add a new skill:

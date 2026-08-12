@@ -77,6 +77,11 @@
       "name": "reasons-people-buy",
       "dir": "skills/reasons-people-buy",
       "description": "Ground persuasive writing in a real reason people buy — use for benefit-led copy, landing pages, ads, offers, positioning, and feature-speak audits"
+    },
+    {
+      "name": "vault-brain",
+      "dir": "skills/vault-brain",
+      "description": "Give every concept in a compiled Obsidian vault its own note, so links resolve and the concept graph appears"
     }
   ]
 }
